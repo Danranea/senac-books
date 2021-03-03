@@ -1,12 +1,6 @@
 package com.senacbooks.senacbooks.categories;
 
-import com.senacbooks.senacbooks.products.ProductDTO;
-
-import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 
 public class CategoryDTO implements Serializable {
 
