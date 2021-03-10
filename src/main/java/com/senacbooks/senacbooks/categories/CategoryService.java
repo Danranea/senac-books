@@ -27,4 +27,18 @@ public class CategoryService {
         return new CategoryDTO(entity);
     }
 
+    @Transactional
+    public CategoryDTO insert(CategoryDTO dto) {
+        CategoryEntity entity = new CategoryEntity();
+        copyDTOToEntity(dto, entity);
+        entity = repository.save(entity);
+
+        return new CategoryDTO(entity);
+    }
+
+    private void copyDTOToEntity(CategoryDTO dto, CategoryEntity entity) {
+        entity.setName(dto.getName());
+        entity.setStatus(dto.getStatus());
+    }
+
 }
