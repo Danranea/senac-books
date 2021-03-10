@@ -44,6 +44,19 @@ public class CategoryService {
         return new CategoryDTO(entity);
     }
 
+    @Transactional
+    public String delete(Long id) {
+        Optional<CategoryEntity> obj = repository.findById(id);
+        CategoryEntity entity = obj.orElseThrow();
+        String retorno = "Categoria " + entity.getName() + " já se encontra deletada.";
+        if (entity.getStatus()) {
+            entity.setStatus(false);
+            entity = repository.save(entity);
+            retorno = "Categoria " + entity.getName() + " deletado com sucesso.";
+        }
+        return retorno;
+    }
+
     private void copyDTOToEntity(CategoryDTO dto, CategoryEntity entity) {
         entity.setName(dto.getName());
         entity.setStatus(dto.getStatus());
