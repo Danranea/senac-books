@@ -69,6 +69,23 @@ public class ProductService {
         return new ProductDTO(entity);
     }
 
+    @Transactional
+    public String delete(Long id) {
+        Optional<ProductEntity> obj = repository.findById(id);
+        ProductEntity entity = obj.orElseThrow();
+        String retorno;
+        if (entity.getStatus()) {
+            entity.setStatus(false);
+            entity = repository.save(entity);
+            retorno = "Livro " + entity.getTitle() + " inativado com sucesso.";
+        }else{
+            entity.setStatus(true);
+            entity = repository.save(entity);
+            retorno = "Livro " + entity.getTitle() + " reativado com sucesso.";
+        }
+        return retorno;
+    }
+
     private void copyDTOToEntity(ProductDTO dto, ProductEntity entity) {
         entity.setTitle(dto.getTitle());
         entity.setDescription(dto.getDescription());
