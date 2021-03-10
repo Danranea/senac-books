@@ -7,21 +7,28 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.print.DocFlavor.URL;
+
+import com.senacbooks.senacbooks.s3.S3Service;
+
 @Service
 public class ImageService {
 
     @Autowired
     private ImageRepository repository;
 
+    @Autowired
+    private S3Service s3Service;
 
-    public List<ImageDTO> findAll(){
+    public List<ImageDTO> findAll() {
         List<ImageEntity> list = repository.findAll();
 
         return list.stream().map(x -> new ImageDTO(x)).collect(Collectors.toList());
     }
 
     public UriDTO uploadFile(MultipartFile file, Boolean principal) {
-        String url = "teste";
+        URL url = s3Service.uploadFile(file);
+
         ImageEntity img = new ImageEntity();
         img.setImgUrl(url.toString());
         img.setPrincipal(principal);
