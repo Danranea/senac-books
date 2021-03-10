@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -25,5 +26,13 @@ public class ProductService {
         List<CategoryEntity> categories = (categoryId == 0)? null : Arrays.asList(categoryRepository.getOne(categoryId));
         Page<ProductEntity> page = repository.find(categories,title, pageRequest);
         return page.map(x -> new ProductDTO(x));
+    }
+
+    @Transactional(readOnly = true)
+    public ProductDTO findById(Long id){
+        Optional<ProductEntity> obj = repository.findById(id);
+        ProductEntity entity = obj.orElseThrow();
+
+        return new ProductDTO(entity);
     }
 }
