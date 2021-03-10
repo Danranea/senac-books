@@ -4,10 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.print.DocFlavor.URL;
 
 import com.senacbooks.senacbooks.s3.S3Service;
 
