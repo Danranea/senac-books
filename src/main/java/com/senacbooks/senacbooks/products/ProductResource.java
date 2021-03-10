@@ -53,4 +53,10 @@ public class ProductResource {
         dto = service.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }
+
+    @DeleteMapping(value = "/{id}")
+    public String delete(@PathVariable Long id){
+        String retorno = service.delete(id);
+        return retorno;
+    }
 }
