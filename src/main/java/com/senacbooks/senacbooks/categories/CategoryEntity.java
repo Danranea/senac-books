@@ -1,8 +1,13 @@
 package com.senacbooks.senacbooks.categories;
 
 import javax.persistence.*;
+
+import com.senacbooks.senacbooks.products.ProductEntity;
+
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_category")
@@ -15,6 +20,9 @@ public class CategoryEntity implements Serializable {
     private Long id;
     private String name;
     private Boolean status;
+
+    @ManyToMany(mappedBy = "categories")
+    private Set<ProductEntity> products = new HashSet<>();
 
     public CategoryEntity() {
     }
