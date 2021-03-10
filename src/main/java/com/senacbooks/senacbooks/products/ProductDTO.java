@@ -1,6 +1,7 @@
 package com.senacbooks.senacbooks.products;
 
 import com.senacbooks.senacbooks.categories.CategoryDTO;
+import com.senacbooks.senacbooks.products.images.ImageDTO;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -24,6 +25,8 @@ public class ProductDTO implements Serializable {
     private Integer year;
     private String edition;
 
+    private Set<ImageDTO> images = new HashSet<>();
+    
     private Set<CategoryDTO> categories = new HashSet<>();
 
     public ProductDTO() {
@@ -177,6 +180,14 @@ public class ProductDTO implements Serializable {
 
     public void setEdition(String edition) {
         this.edition = edition;
+    }
+
+    public Set<ImageDTO> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<ImageDTO> images) {
+        this.images = images;
     }
 
     public Set<CategoryDTO> getCategories() {

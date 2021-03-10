@@ -1,7 +1,13 @@
 package com.senacbooks.senacbooks.products;
 
+import com.senacbooks.senacbooks.categories.CategoryDTO;
 import com.senacbooks.senacbooks.categories.CategoryEntity;
 import com.senacbooks.senacbooks.categories.CategoryRepository;
+import com.senacbooks.senacbooks.products.images.ImageDTO;
+import com.senacbooks.senacbooks.products.images.ImageEntity;
+import com.senacbooks.senacbooks.products.images.ImageRepository;
+import com.senacbooks.senacbooks.products.images.ImageService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +23,12 @@ public class ProductService {
 
     @Autowired
     private ProductRepository repository;
+
+    @Autowired
+    private ImageService imageService;
+
+    @Autowired
+    private ImageRepository imageRepository;
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -47,5 +59,44 @@ public class ProductService {
         }
 
         return new ProductDTO(entity);
+    }
+
+    private void copyDTOToEntity(ProductDTO dto, ProductEntity entity) {
+        entity.setTitle(dto.getTitle());
+        entity.setDescription(dto.getDescription());
+        entity.setQuantity(dto.getQuantity());
+        entity.setTitle(dto.getTitle());
+        entity.setStatus(dto.getStatus());
+        entity.setRating(dto.getRating());
+        entity.setPrice(dto.getPrice());
+        entity.setAuthor(dto.getAuthor());
+        entity.setPublisher(dto.getPublisher());
+        entity.setPages(dto.getPages());
+        entity.setSize(dto.getSize());
+        entity.setYear(dto.getYear());
+        entity.setEdition(dto.getEdition());
+
+        entity.getImages().clear();
+        for (ImageDTO imageDTO : dto.getImages()) {
+            ImageEntity image = imageRepository.getOne(imageDTO.getId());
+            entity.getImages().add(image);
+        }
+
+        entity.getCategories().clear();
+        for (CategoryDTO categoryDTO : dto.getCategories()) {
+            CategoryEntity category = categoryRepository.getOne(categoryDTO.getId());
+            entity.getCategories().add(category);
+        }
+    }
+
+    public ProductEntity getproduct(Long id){
+        return repository.findById(id).orElseThrow();
+    }
+
+    public void addImageToProduct(Long productId, Long imageId){
+        ProductEntity productEntity = getproduct(productId);
+        ImageEntity imageEntity = imageService.getImage(imageId);
+
+        imageEntity.setProduct(productEntity);
     }
 }
