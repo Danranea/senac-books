@@ -7,22 +7,51 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+
 public class ProductDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Long id;
+
+    @Size(min = 3,max = 280, message = "Mínimo de 3 caracteres e máximo de 280 caracteres")    
+    @NotBlank(message = "Campo obrigatório")
     private String title;
+
+    @Size(max = 2000, message = "Máximo de 1000 caracteres")
+    @NotBlank(message = "Campo obrigatório")
     private String description;
+
+    @Positive(message = "valor deve ser maior que zero")
     private Integer quantity;
+
     private Boolean status;
+
+    @Positive(message = "valor deve ser maior que zero")
     private Double rating;
+
+    @Positive(message = "valor deve ser maior que zero")
     private Double price;
+
+    @NotBlank(message = "Campo obrigatório")
     private String author;
+
+    @NotBlank(message = "Campo obrigatório")
     private String publisher;
+
+    @Positive(message = "valor deve ser maior que zero")
     private Integer pages;
+
+    @NotBlank(message = "Campo obrigatório")
     private String size;
+
+    @Positive(message = "valor deve ser maior que zero")
     private Integer year;
+
+    @NotBlank(message = "Campo obrigatório")
     private String edition;
 
     private Set<ImageDTO> images = new HashSet<>();
@@ -76,6 +105,8 @@ public class ProductDTO implements Serializable {
         this.size = entity.getSize();
         this.year= entity.getYear();
         this.edition = entity.getEdition();
+        entity.getImages().forEach(img -> this.images.add(new ImageDTO(img)));
+        entity.getCategories().forEach(cat -> this.categories.add(new CategoryDTO(cat)));
     }
 
     public Long getId() {
