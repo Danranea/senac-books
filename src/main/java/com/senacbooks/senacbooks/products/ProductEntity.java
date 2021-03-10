@@ -1,6 +1,7 @@
 package com.senacbooks.senacbooks.products;
 
 import com.senacbooks.senacbooks.categories.CategoryEntity;
+import com.senacbooks.senacbooks.products.images.ImageEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -33,6 +34,9 @@ public class ProductEntity implements Serializable {
     private Integer year;
     private String edition;
 
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<ImageEntity> images = new HashSet<>();
+    
     @ManyToMany
     @JoinTable(
             name="tb_product_category",
@@ -176,6 +180,10 @@ public class ProductEntity implements Serializable {
 
     public void setEdition(String edition) {
         this.edition = edition;
+    }
+
+    public Set<ImageEntity> getImages() {
+        return images;
     }
 
     public Set<CategoryEntity> getCategories() {
