@@ -1,6 +1,10 @@
 package com.senacbooks.senacbooks.categories;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.senacbooks.senacbooks.products.ProductDTO;
 
 public class CategoryDTO implements Serializable {
 
@@ -9,6 +13,8 @@ public class CategoryDTO implements Serializable {
     private Long id;
     private String name;
     private Boolean status;
+
+    private Set<ProductDTO> products = new HashSet<>();
 
     public CategoryDTO() {
     }
