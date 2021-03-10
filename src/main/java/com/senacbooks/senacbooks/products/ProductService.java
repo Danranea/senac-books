@@ -35,4 +35,17 @@ public class ProductService {
 
         return new ProductDTO(entity);
     }
+    
+    @Transactional
+    public ProductDTO insert(ProductDTO dto){
+        ProductEntity entity = new ProductEntity();
+        copyDTOToEntity(dto, entity);
+        entity = repository.save(entity);
+
+        for (ImageEntity image: entity.getImages()) {
+            addImageToProduct(entity.getId(), image.getId());
+        }
+
+        return new ProductDTO(entity);
+    }
 }
