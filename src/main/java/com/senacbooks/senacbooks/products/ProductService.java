@@ -55,7 +55,7 @@ public class ProductService {
         entity = repository.save(entity);
 
         for (ImageEntity image: entity.getImages()) {
-            addImageToProduct(entity.getId(), image.getId());
+            addImageToProduct(entity.getId(), image.getId(), image.getPrincipal());
         }
 
         return new ProductDTO(entity);
@@ -118,10 +118,11 @@ public class ProductService {
         return repository.findById(id).orElseThrow();
     }
 
-    public void addImageToProduct(Long productId, Long imageId){
+    public void addImageToProduct(Long productId, Long imageId, Boolean principal){
         ProductEntity productEntity = getproduct(productId);
         ImageEntity imageEntity = imageService.getImage(imageId);
 
         imageEntity.setProduct(productEntity);
+        imageEntity.setPrincipal(principal);
     }
 }
