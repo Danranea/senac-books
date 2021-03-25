@@ -25,15 +25,18 @@ public class ImageService {
         return list.stream().map(x -> new ImageDTO(x)).collect(Collectors.toList());
     }
 
-    public UriDTO uploadFile(MultipartFile file, Boolean principal) {
-        URL url = s3Service.uploadFile(file);
-
+    public UriDTO uploadFile(MultipartFile file) {
+        // TODO voltar para s3 para apresentação pro professor
+//        URL url = s3Service.uploadFile(file);
+        String url = "http://books.google.com/books/content?id=Red7DwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api";
         ImageEntity img = new ImageEntity();
-        img.setImgUrl(url.toString());
-        img.setPrincipal(principal);
+//        img.setImgUrl(url.toString());
+        img.setImgUrl(url);
         img = repository.save(img);
+        System.out.println(img.getId());
+        System.out.println(img.getImgUrl());
 
-        return new UriDTO(url.toString(), img.getPrincipal());
+        return new UriDTO(img.getId(), img.getImgUrl());
     }
 
     public ImageEntity getImage(Long imageId) {

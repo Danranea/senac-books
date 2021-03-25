@@ -6,23 +6,32 @@ public class UriDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String uri;
+    private Long id;
+    private String imgUrl;
     private Boolean prinicpal;
 
     public UriDTO() {
     }
 
-    public UriDTO(String uri, Boolean prinicpal) {
-        this.uri = uri;
-        this.prinicpal = prinicpal;
+    public UriDTO(Long id, String imgUrl) {
+        this.id = id;
+        this.imgUrl = imgUrl;
     }
 
-    public String getUri() {
-        return uri;
+    public Long getId() {
+        return id;
     }
 
-    public void setUri(String uri) {
-        this.uri = uri;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public Boolean getPrinicpal() {
