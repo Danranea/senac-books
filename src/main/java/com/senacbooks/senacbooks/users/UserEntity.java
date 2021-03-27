@@ -6,7 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.senacbooks.senacbooks.roles.RoleEntity;
 
 @Entity
 @Table(name = "tb_user")
@@ -22,6 +26,10 @@ public class UserEntity implements Serializable {
     private String password;
     private String email;
     private Boolean status;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private RoleEntity role;
 
     public UserEntity() {
     }
