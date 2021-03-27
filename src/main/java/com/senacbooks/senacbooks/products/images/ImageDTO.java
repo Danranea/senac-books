@@ -13,22 +13,25 @@ public class ImageDTO implements Serializable {
     private Long id;
     private String imgUrl;
     private Boolean principal;
+    private Boolean status;
 
     private ProductDTO product;
 
     public ImageDTO() {
     }
 
-    public ImageDTO(Long id, String imgUrl, Boolean principal) {
+    public ImageDTO(Long id, String imgUrl, Boolean principal, Boolean status) {
         this.id = id;
         this.imgUrl = imgUrl;
         this.principal = principal;
+        this.status = status;
     }
 
     public ImageDTO(ImageEntity entity){
         this.id = entity.getId();
         this.imgUrl = entity.getImgUrl();
         this.principal = entity.getPrincipal();
+        this.status = entity.getStatus();
     }
 
     public Long getId() {
@@ -53,6 +56,14 @@ public class ImageDTO implements Serializable {
 
     public void setPrincipal(Boolean principal) {
         this.principal = principal;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     @Override
