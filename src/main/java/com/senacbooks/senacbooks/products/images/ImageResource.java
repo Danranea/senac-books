@@ -26,4 +26,10 @@ public class ImageResource {
         UriDTO dto = service.uploadFile(file);
         return ResponseEntity.ok().body(dto);
     }
+
+    @DeleteMapping(value="/image/{id}")
+    public String inactivateImage(@PathVariable Long id){
+        String retorno = service.delete(id);
+        return retorno;
+    }
 }

@@ -55,7 +55,7 @@ public class ProductService {
         entity = repository.save(entity);
 
         for (ImageEntity image: entity.getImages()) {
-            addImageToProduct(entity.getId(), image.getId(), image.getPrincipal());
+            addImageToProduct(entity.getId(), image.getId());
         }
 
         return new ProductDTO(entity);
@@ -66,6 +66,11 @@ public class ProductService {
         ProductEntity entity = repository.getOne(id);
         copyDTOToEntity(dto, entity);
         entity = repository.save(entity);
+
+        for (ImageEntity image: entity.getImages()) {
+            addImageToProduct(entity.getId(), image.getId());
+        }
+
         return new ProductDTO(entity);
     }
 
@@ -104,6 +109,7 @@ public class ProductService {
         entity.getImages().clear();
         for (ImageDTO imageDTO : dto.getImages()) {
             ImageEntity image = imageRepository.getOne(imageDTO.getId());
+            image.setPrincipal(imageDTO.getPrincipal());
             entity.getImages().add(image);
         }
 
@@ -118,11 +124,10 @@ public class ProductService {
         return repository.findById(id).orElseThrow();
     }
 
-    public void addImageToProduct(Long productId, Long imageId, Boolean principal){
+    public void addImageToProduct(Long productId, Long imageId){
         ProductEntity productEntity = getproduct(productId);
         ImageEntity imageEntity = imageService.getImage(imageId);
 
         imageEntity.setProduct(productEntity);
-        imageEntity.setPrincipal(principal);
     }
 }

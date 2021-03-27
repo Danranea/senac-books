@@ -8,15 +8,17 @@ public class UriDTO implements Serializable {
 
     private Long id;
     private String imgUrl;
-    private Boolean prinicpal;
+    private Boolean principal;
+    private Boolean status;
 
     public UriDTO() {
     }
 
-    public UriDTO(Long id, String imgUrl, Boolean prinicpal) {
+    public UriDTO(Long id, String imgUrl, Boolean principal,  Boolean status) {
         this.id = id;
         this.imgUrl = imgUrl;
-        this.prinicpal = prinicpal;
+        this.principal = principal;
+        this.status = status;
     }
 
     public Long getId() {
@@ -35,11 +37,19 @@ public class UriDTO implements Serializable {
         this.imgUrl = imgUrl;
     }
 
-    public Boolean getPrinicpal() {
-        return prinicpal;
+    public Boolean getPrincipal() {
+        return principal;
     }
 
-    public void setPrinicpal(Boolean prinicpal) {
-        this.prinicpal = prinicpal;
+    public void setPrincipal(Boolean principal) {
+        this.principal = principal;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 }
