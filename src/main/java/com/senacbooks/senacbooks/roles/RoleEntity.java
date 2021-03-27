@@ -1,16 +1,20 @@
 package com.senacbooks.senacbooks.roles;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.senacbooks.senacbooks.users.UserEntity;
 
 @Entity
 @Table(name = "tb_roles")
-public class RolesEntity implements Serializable{
+public class RoleEntity implements Serializable{
     
     private static final long serialVersionUID = 1L;
     
@@ -18,11 +22,14 @@ public class RolesEntity implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String authority;
+
+    @OneToMany(mappedBy = "role")
+    private Set<UserEntity> users;
     
-    public RolesEntity() {
+    public RoleEntity() {
     }
 
-    public RolesEntity(String authority, Long id) {
+    public RoleEntity(String authority, Long id) {
         this.authority = authority;
         this.id = id;
     }
@@ -59,7 +66,7 @@ public class RolesEntity implements Serializable{
             return false;
         if (getClass() != obj.getClass())
             return false;
-        RolesEntity other = (RolesEntity) obj;
+        RoleEntity other = (RoleEntity) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

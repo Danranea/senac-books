@@ -2,22 +2,22 @@ package com.senacbooks.senacbooks.roles;
 
 import java.io.Serializable;
 
-public class RolesDTO implements Serializable{
+public class RoleDTO implements Serializable{
     
     private static final long serialVersionUID = 1L;
     
     private Long id;
     private String authority;
 
-    public RolesDTO() {
+    public RoleDTO() {
     }
     
-    public RolesDTO(Long id, String authority) {
+    public RoleDTO(Long id, String authority) {
         this.id = id;
         this.authority = authority;
     }
 
-    public RolesDTO(RolesEntity entity) {
+    public RoleDTO(RoleEntity entity) {
         id = entity.getId();
         authority = entity.getAuthority();
     }

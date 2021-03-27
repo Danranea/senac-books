@@ -7,35 +7,35 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class RolesService {
+public class RoleService {
     
     @Autowired
-    private RolesRepository repository;
+    private RoleRepository repository;
 
     @Transactional(readOnly = true)
-    public RolesDTO findById(Long id){
-        Optional<RolesEntity> obj = repository.findById(id);
-        RolesEntity entity = obj.orElseThrow();
+    public RoleDTO findById(Long id){
+        Optional<RoleEntity> obj = repository.findById(id);
+        RoleEntity entity = obj.orElseThrow();
 
-        return new RolesDTO(entity);
+        return new RoleDTO(entity);
     }
 
     @Transactional
-    public RolesDTO insert(RolesDTO dto) {
-        RolesEntity entity = new RolesEntity();
+    public RoleDTO insert(RoleDTO dto) {
+        RoleEntity entity = new RoleEntity();
         copyDTOToEntity(dto, entity);
         entity = repository.save(entity);
 
-        return new RolesDTO(entity);
+        return new RoleDTO(entity);
     }
 
     @Transactional
-    public RolesDTO update(Long id, RolesDTO dto) {
-        RolesEntity entity = repository.getOne(id);
+    public RoleDTO update(Long id, RoleDTO dto) {
+        RoleEntity entity = repository.getOne(id);
         copyDTOToEntity(dto, entity);
         entity = repository.save(entity);
 
-        return new RolesDTO(entity);
+        return new RoleDTO(entity);
     }
 
     // @Transactional
@@ -43,7 +43,7 @@ public class RolesService {
         // TODO
     // }
 
-    private void copyDTOToEntity(RolesDTO dto, RolesEntity entity) {
+    private void copyDTOToEntity(RoleDTO dto, RoleEntity entity) {
         entity.setId(dto.getId());
         entity.setAuthority(dto.getAuthority());
     }

@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-public class RolesResource {
+public class RoleResource {
     
     @Autowired
-    private RolesService service;
+    private RoleService service;
 
     // @GetMapping
     // public ResponseEntity<Page<RolesDTO>> findAll(
@@ -23,21 +23,21 @@ public class RolesResource {
     // )
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<RolesDTO> findById(@PathVariable Long id) {
-        RolesDTO dto = service.findById(id);
+    public ResponseEntity<RoleDTO> findById(@PathVariable Long id) {
+        RoleDTO dto = service.findById(id);
         return ResponseEntity.ok().body(dto);
     }
 
     @PostMapping
-    public ResponseEntity<RolesDTO> insert(@RequestBody RolesDTO dto) {
+    public ResponseEntity<RoleDTO> insert(@RequestBody RoleDTO dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<RolesDTO> update(@PathVariable Long id, @RequestBody RolesDTO body) {
-        RolesDTO dto = service.update(id, body);
+    public ResponseEntity<RoleDTO> update(@PathVariable Long id, @RequestBody RoleDTO body) {
+        RoleDTO dto = service.update(id, body);
 
         return ResponseEntity.ok().body(dto);
     }
