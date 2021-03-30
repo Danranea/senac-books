@@ -8,20 +8,27 @@ public class UserDTO implements Serializable {
 
     private Long id;
     private String name;
+    // private String zipCode;
+    // private String address;
+    // private String number;
+    // private String addressComplement;
+    // private String city;
+    // private String state;
+    // private String country;
     private String login;
     private String password;
-    private String email;
     private Boolean status;
+
+    // private Address address;
 
     public UserDTO() {
     }
 
-    public UserDTO(Long id, String name, String login, String password, String email, Boolean status) {
+    public UserDTO(Long id, String name, String login, String password, Boolean status) {
         this.id = id;
         this.name = name;
         this.login = login;
         this.password = password;
-        this.email = email;
         this.status = status;
     }
 
