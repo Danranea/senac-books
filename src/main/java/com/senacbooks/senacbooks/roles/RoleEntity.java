@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import com.senacbooks.senacbooks.users.UserEntity;
 
 @Entity
-@Table(name = "tb_roles")
+@Table(name = "tb_role")
 public class RoleEntity implements Serializable{
     
     private static final long serialVersionUID = 1L;
