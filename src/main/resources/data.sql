@@ -851,28 +851,28 @@ insert into tb_product_category (product_id, category_id) values
 (256,65);
 
 insert into tb_role (authority) values
-("admin"),
-("estoquista");
+('admin'),
+('estoquista');
 
-insert into tb_user (name, login, password, email, status, role_id) values
-("danilo", "danilo@email.com", "123456789", true, 1),
-("joao", "joao@email.com", "123456789", true, 1),
-("paulo", "paulo@email.com", "123456789", true, 1),
-("sillas", "sillas@email.com", "123456789", true, 1),
-("mario", "mario@email.com", "123456789", true, 1),
-("kleber", "kleber@email.com", "123456789", true, 2),
-("maria", "maria@email.com", "123456789", true, 2),
-("larissa", "larissa@email.com", "123456789", true, 2),
-("mariana", "mariana@email.com", "123456789", true, 2),
-("marcos", "marcos@email.com", "123456789", true, 2),
-("murilo", "murilo@email.com", "123456789", true, 2),
-("mateus", "mateus@email.com", "123456789", true, 2),
-("daniel", "daniel@email.com", "123456789", true, 2),
-("geovana", "geovana@email.com", "123456789", true, 2),
-("luiza", "luiza@email.com", "123456789", true, 2),
-("marta", "marta@email.com", "123456789", true, 2),
-("joao", "joao@email.com", "123456789", true, 2),
-("victor", "victor@email.com", "123456789", true, 2),
-("mariela", "mariela@email.com", "123456789", true, 2),
-("gavin", "gavin@email.com", "123456789", true, 2),
-("caio", "caio@email.com", "123456789", true, 2);
+insert into tb_user (name, login, password, status, role_id) values
+('Danilo Ranéa', 'danilo@email.com', '123456789', true, 1),
+('Joao Vitor', 'joao@email.com', '123456789', true, 1),
+('Paulo Honotos', 'paulo@email.com', '123456789', true, 1),
+('Sillas Cavalcante', 'sillas@email.com', '123456789', true, 1),
+('Mario Rui Lisboas', 'mario@email.com', '123456789', true, 1),
+('Kleber Machado', 'kleber@email.com', '123456789', true, 2),
+('Maria Josefina', 'maria@email.com', '123456789', true, 2),
+('Larissa Gualberto', 'larissa@email.com', '123456789', true, 2),
+('Mariana Rosalina', 'mariana@email.com', '123456789', true, 2),
+('Marcos Pedroso', 'marcos@email.com', '123456789', true, 2),
+('Murilo Benício', 'murilo@email.com', '123456789', true, 2),
+('Mateus Orvalho', 'mateus@email.com', '123456789', true, 2),
+('Daniel Alcantara', 'daniel@email.com', '123456789', true, 2),
+('Geovana Dontal', 'geovana@email.com', '123456789', true, 2),
+('Luiza Albertini', 'luiza@email.com', '123456789', true, 2),
+('Marta Oliveira', 'marta@email.com', '123456789', true, 2),
+('Joao Alves', 'joao@email.com', '123456789', true, 2),
+('Victor Augusto', 'victor@email.com', '123456789', true, 2),
+('Mariela Stefanini', 'mariela@email.com', '123456789', true, 2),
+('Gavin Cristovan', 'gavin@email.com', '123456789',  true,2),
+('Caio Almeida', 'caio@email.com', '123456789', true, 2);
