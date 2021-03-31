@@ -58,7 +58,6 @@ public class UserService {
         entity.setName(dto.getName());
         entity.setLogin(dto.getLogin());
         entity.setPassword(dto.getPassword());
-        entity.setEmail(dto.getEmail());
         entity.setStatus(dto.getStatus());
     }
 }
