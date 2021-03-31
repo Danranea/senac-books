@@ -3,6 +3,7 @@ package com.senacbooks.senacbooks.users;
 import java.io.Serializable;
 
 import com.senacbooks.senacbooks.address.AddressDTO;
+import com.senacbooks.senacbooks.roles.RoleEntity;
 
 public class UserDTO implements Serializable {
 
@@ -15,6 +16,8 @@ public class UserDTO implements Serializable {
     private String password;
     private Boolean status;
 
+    private RoleEntity role;
+    
     private AddressDTO address;
 
     public UserDTO() {
