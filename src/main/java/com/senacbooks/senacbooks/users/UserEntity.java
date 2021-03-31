@@ -8,8 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.senacbooks.senacbooks.address.AddressEntity;
 import com.senacbooks.senacbooks.roles.RoleEntity;
 
 @Entity
@@ -22,6 +24,7 @@ public class UserEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String cpf;
     private String login;
     private String password;
     private Boolean status;
@@ -30,12 +33,15 @@ public class UserEntity implements Serializable {
     @JoinColumn(name = "role_id")
     private RoleEntity role;
 
+    private AddressEntity address;
+
     public UserEntity() {
     }
 
-    public UserEntity(Long id, String name, String login, String password, Boolean status) {
+    public UserEntity(Long id, String name, String cpf, String login, String password, Boolean status) {
         this.id = id;
         this.name = name;
+        this.cpf = cpf;
         this.login = login;
         this.password = password;
         this.status = status;
@@ -57,6 +63,14 @@ public class UserEntity implements Serializable {
         this.name = name;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+    
     public String getLogin() {
         return login;
     }
