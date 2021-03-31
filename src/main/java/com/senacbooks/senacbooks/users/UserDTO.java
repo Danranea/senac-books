@@ -2,31 +2,28 @@ package com.senacbooks.senacbooks.users;
 
 import java.io.Serializable;
 
+import com.senacbooks.senacbooks.address.AddressDTO;
+
 public class UserDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Long id;
     private String name;
-    // private String zipCode;
-    // private String address;
-    // private String number;
-    // private String addressComplement;
-    // private String city;
-    // private String state;
-    // private String country;
+    private String cpf;
     private String login;
     private String password;
     private Boolean status;
 
-    // private Address address;
+    private AddressDTO address;
 
     public UserDTO() {
     }
 
-    public UserDTO(Long id, String name, String login, String password, Boolean status) {
+    public UserDTO(Long id, String name, String cpf, String login, String password, Boolean status) {
         this.id = id;
         this.name = name;
+        this.cpf = cpf;
         this.login = login;
         this.password = password;
         this.status = status;
@@ -35,6 +32,7 @@ public class UserDTO implements Serializable {
     public UserDTO(UserEntity entity) {
         this.id = entity.getId();
         this.name = entity.getName();
+        this.cpf = entity.getCpf();
         this.login = entity.getLogin();
         this.password = entity.getPassword();
         this.status = entity.getStatus();
@@ -58,6 +56,14 @@ public class UserDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getLogin() {
