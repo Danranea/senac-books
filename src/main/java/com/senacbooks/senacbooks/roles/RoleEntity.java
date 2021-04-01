@@ -11,10 +11,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.senacbooks.senacbooks.users.UserEntity;
+import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 @Table(name = "tb_role")
-public class RoleEntity implements Serializable{
+public class RoleEntity implements Serializable, GrantedAuthority {
     
     private static final long serialVersionUID = 1L;
     
@@ -22,9 +23,6 @@ public class RoleEntity implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String authority;
-
-    @OneToMany(mappedBy = "role")
-    private Set<UserEntity> users;
     
     public RoleEntity() {
     }

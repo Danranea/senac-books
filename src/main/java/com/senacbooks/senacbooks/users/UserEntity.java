@@ -1,14 +1,13 @@
 package com.senacbooks.senacbooks.users;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.management.relation.Role;
+import javax.persistence.*;
 
 import com.senacbooks.senacbooks.roles.RoleEntity;
 
@@ -22,24 +21,26 @@ public class UserEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String login;
+    private String userName;
     private String password;
-    private String email;
     private Boolean status;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private RoleEntity role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name="tb_user_role",
+            joinColumns = @JoinColumn(name = "user_id"), // chave estrangeira relacionada a classe onde estamos, ou seja, será o produto.(A própria classe)
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<RoleEntity> roles = new ArrayList<>();
 
     public UserEntity() {
     }
 
-    public UserEntity(Long id, String name, String login, String password, String email, Boolean status) {
+    public UserEntity(Long id, String name, String userName, String password, String email, Boolean status) {
         this.id = id;
         this.name = name;
-        this.login = login;
+        this.userName = userName;
         this.password = password;
-        this.email = email;
         this.status = status;
     }
 
@@ -59,12 +60,12 @@ public class UserEntity implements Serializable {
         this.name = name;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -75,20 +76,16 @@ public class UserEntity implements Serializable {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public Boolean getStatus() {
         return status;
     }
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public List<RoleEntity> getRoles() {
+        return roles;
     }
 
     @Override
