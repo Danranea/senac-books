@@ -7,10 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.apache.catalina.User;
+import com.senacbooks.senacbooks.users.UserEntity;
 
 @Entity
 @Table(name = "tb_address")
@@ -29,8 +29,9 @@ public class AddressEntity implements Serializable {
     private String state;
     private String country;
 
+    @OneToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserEntity user;
 
     // @ManyToOne
     // @JoinColumn(name = "client_id")
@@ -115,11 +116,11 @@ public class AddressEntity implements Serializable {
         this.country = country;
     }
 
-    public User getUser() {
+    public UserEntity getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserEntity user) {
         this.user = user;
     }
 
