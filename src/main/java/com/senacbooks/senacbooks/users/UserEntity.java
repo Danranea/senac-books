@@ -33,6 +33,7 @@ public class UserEntity implements Serializable {
     @JoinColumn(name = "role_id")
     private RoleEntity role;
 
+    @OneToOne(mappedBy = "user")
     private AddressEntity address;
 
     public UserEntity() {
@@ -93,6 +94,22 @@ public class UserEntity implements Serializable {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public RoleEntity getRole() {
+        return role;
+    }
+
+    public void setRole(RoleEntity role) {
+        this.role = role;
+    }
+
+    public AddressEntity getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressEntity address) {
+        this.address = address;
     }
 
     @Override
