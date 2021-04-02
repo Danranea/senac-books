@@ -2,22 +2,37 @@ package com.senacbooks.senacbooks.address;
 
 import java.io.Serializable;
 
-import org.apache.catalina.User;
+import javax.validation.constraints.NotBlank;
+
+import com.senacbooks.senacbooks.users.UserEntity;
 
 public class AddressDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Long id;
+    
+    @NotBlank(message = "Campo obrigatório")
     private String zipCode;
+
+    @NotBlank(message = "Campo obrigatório")
     private String address;
+
+    @NotBlank(message = "Campo obrigatório")
     private Integer number;
+
     private String addressComplement;
+
+    @NotBlank(message = "Campo obrigatório")
     private String city;
+
+    @NotBlank(message = "Campo obrigatório")
     private String state;
+
+    @NotBlank(message = "Campo obrigatório")
     private String country;
 
-    private User user;
+    private UserEntity user;
 
     // private Client obj;
 
@@ -111,11 +126,11 @@ public class AddressDTO implements Serializable {
         this.country = country;
     }
 
-    public User getUser() {
+    public UserEntity getUserEntity() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUserEntity(UserEntity user) {
         this.user = user;
     }
 

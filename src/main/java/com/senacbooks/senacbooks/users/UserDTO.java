@@ -2,6 +2,9 @@ package com.senacbooks.senacbooks.users;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import com.senacbooks.senacbooks.address.AddressDTO;
 import com.senacbooks.senacbooks.roles.RoleEntity;
 
@@ -10,14 +13,24 @@ public class UserDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
+
+    @Size(min = 5, message = "Mínimo de 5 caracteres")
+    @NotBlank(message = "Campo obrigatório")
     private String name;
+
+    @NotBlank(message = "Campo obrigatório")
     private String cpf;
+
+    @NotBlank(message = "Campo obrigatório")
     private String login;
+
+    @NotBlank(message = "Campo obrigatório")
     private String password;
+
     private Boolean status;
 
     private RoleEntity role;
-    
+
     private AddressDTO address;
 
     public UserDTO() {
@@ -39,10 +52,6 @@ public class UserDTO implements Serializable {
         this.login = entity.getLogin();
         this.password = entity.getPassword();
         this.status = entity.getStatus();
-    }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
     }
 
     public Long getId() {
@@ -92,4 +101,13 @@ public class UserDTO implements Serializable {
     public void setStatus(Boolean status) {
         this.status = status;
     }
+
+    public RoleEntity getRole() {
+        return role;
+    }
+
+    public AddressDTO getAddress() {
+        return address;
+    }
+
 }
