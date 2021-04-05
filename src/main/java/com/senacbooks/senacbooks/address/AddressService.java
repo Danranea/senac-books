@@ -1,6 +1,8 @@
 package com.senacbooks.senacbooks.address;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,13 @@ public class AddressService {
     
     @Autowired
     private AddressRepository repository;
+
+    @Transactional(readOnly = true)
+    public List<AddressDTO> findAll() {
+        List<AddressEntity> list = repository.findAll();
+
+        return list.stream().map(x -> new AddressDTO(x)).collect(Collectors.toList());
+    }
 
     @Transactional(readOnly = true)
     public AddressDTO findById(Long id) {

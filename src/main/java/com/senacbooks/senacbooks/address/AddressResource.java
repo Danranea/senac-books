@@ -1,6 +1,7 @@
 package com.senacbooks.senacbooks.address;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,13 @@ public class AddressResource {
     
     @Autowired
     private AddressService service;
+
+    @GetMapping
+    public ResponseEntity<List<AddressDTO>> findAll(){
+        List<AddressDTO> list = service.findAll();
+
+        return ResponseEntity.ok().body(list);
+    }
 
     @GetMapping(value = "/{zipCode}")
     public ResponseEntity<AddressDTO> findById(@PathVariable Long id) {

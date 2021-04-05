@@ -1,6 +1,8 @@
 package com.senacbooks.senacbooks.roles;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,13 @@ public class RoleService {
     @Autowired
     private RoleRepository repository;
 
+    @Transactional(readOnly = true)
+    public List<RoleDTO> findAll() {
+        List<RoleEntity> list = repository.findAll();
+
+        return list.stream().map(x -> new RoleDTO(x)).collect(Collectors.toList());
+    }
+    
     @Transactional(readOnly = true)
     public RoleDTO findById(Long id){
         Optional<RoleEntity> obj = repository.findById(id);
