@@ -30,7 +30,7 @@ public class AddressResource {
         return ResponseEntity.ok().body(list);
     }
 
-    @GetMapping(value = "/{zipCode}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<AddressDTO> findById(@PathVariable Long id) {
         AddressDTO dto = service.findById(id);
         return ResponseEntity.ok().body(dto);
