@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.senacbooks.senacbooks.address.AddressDTO;
-import com.senacbooks.senacbooks.roles.RoleEntity;
+import com.senacbooks.senacbooks.roles.RoleDTO;
 
 public class UserDTO implements Serializable {
 
@@ -29,9 +29,9 @@ public class UserDTO implements Serializable {
 
     private Boolean status;
 
-    private RoleEntity role;
+    private RoleDTO role;
 
-    private AddressDTO address;
+    // private AddressDTO address;
 
     public UserDTO() {
     }
@@ -52,6 +52,8 @@ public class UserDTO implements Serializable {
         this.login = entity.getLogin();
         this.password = entity.getPassword();
         this.status = entity.getStatus();
+        this.role = new RoleDTO(entity.getRole());
+        // this.address = new AddressDTO(entity.getAddress());
     }
 
     public Long getId() {
@@ -102,12 +104,12 @@ public class UserDTO implements Serializable {
         this.status = status;
     }
 
-    public RoleEntity getRole() {
+    public RoleDTO getRole() {
         return role;
     }
 
-    public AddressDTO getAddress() {
-        return address;
-    }
+    // public AddressDTO getAddress() {
+    //     return address;
+    // }
 
 }

@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.senacbooks.senacbooks.address.AddressEntity;
 import com.senacbooks.senacbooks.roles.RoleEntity;
 
@@ -33,8 +34,8 @@ public class UserEntity implements Serializable {
     @JoinColumn(name = "role_id")
     private RoleEntity role;
 
-    @OneToOne(mappedBy = "user")
-    private AddressEntity address;
+    // @OneToOne(mappedBy = "user")
+    // private AddressEntity address;
 
     public UserEntity() {
     }
@@ -100,17 +101,9 @@ public class UserEntity implements Serializable {
         return role;
     }
 
-    public void setRole(RoleEntity role) {
-        this.role = role;
-    }
-
-    public AddressEntity getAddress() {
-        return address;
-    }
-
-    public void setAddress(AddressEntity address) {
-        this.address = address;
-    }
+    // public AddressEntity getAddress() {
+    //     return address;
+    // }
 
     @Override
     public int hashCode() {
