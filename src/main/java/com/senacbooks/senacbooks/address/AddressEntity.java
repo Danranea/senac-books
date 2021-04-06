@@ -29,9 +29,9 @@ public class AddressEntity implements Serializable {
     private String state;
     private String country;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+    // @OneToOne
+    // @JoinColumn(name = "user_id")
+    // private UserEntity user;
 
     // @ManyToOne
     // @JoinColumn(name = "client_id")
@@ -116,13 +116,9 @@ public class AddressEntity implements Serializable {
         this.country = country;
     }
 
-    public UserEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UserEntity user) {
-        this.user = user;
-    }
+    // public UserEntity getUser() {
+    //     return user;
+    // }
 
     @Override
     public int hashCode() {
