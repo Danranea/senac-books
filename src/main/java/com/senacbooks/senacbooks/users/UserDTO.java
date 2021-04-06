@@ -1,6 +1,8 @@
 package com.senacbooks.senacbooks.users;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -29,7 +31,7 @@ public class UserDTO implements Serializable {
 
     private Boolean status;
 
-    private RoleDTO role;
+    Set<RoleDTO> roles = new HashSet<>();
 
     // private AddressDTO address;
 
@@ -52,7 +54,7 @@ public class UserDTO implements Serializable {
         this.login = entity.getLogin();
         this.password = entity.getPassword();
         this.status = entity.getStatus();
-        this.role = new RoleDTO(entity.getRole());
+        entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
         // this.address = new AddressDTO(entity.getAddress());
     }
 
@@ -104,8 +106,8 @@ public class UserDTO implements Serializable {
         this.status = status;
     }
 
-    public RoleDTO getRole() {
-        return role;
+    public Set<RoleDTO> getRoles() {
+        return roles;
     }
 
     // public AddressDTO getAddress() {

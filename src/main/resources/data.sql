@@ -851,31 +851,54 @@ insert into tb_product_category (product_id, category_id) values
 (256,65);
 
 insert into tb_role (authority) values
-('admin'),
-('estoquista');
+('ADMIN'),
+('ESTOQUISTA');
 
-insert into tb_user (name, cpf, login, password, status, role_id) values
-('Danilo Ranéa', '00000000000', 'danilo@email.com', '123456789', true, 1),
-('Joao Vitor', '00000000000', 'joao@email.com', '123456789', true, 1),
-('Paulo Honotos', '00000000000', 'paulo@email.com', '123456789', true, 1),
-('Sillas Cavalcante', '00000000000', 'sillas@email.com', '123456789', true, 1),
-('Mario Rui Lisboas', '00000000000', 'mario@email.com', '123456789', true, 1),
-('Kleber Machado', '00000000000', 'kleber@email.com', '123456789', true, 2),
-('Maria Josefina', '00000000000', 'maria@email.com', '123456789', true, 2),
-('Larissa Gualberto', '00000000000', 'larissa@email.com', '123456789', true, 2),
-('Mariana Rosalina', '00000000000', 'mariana@email.com', '123456789', true, 2),
-('Marcos Pedroso', '00000000000', 'marcos@email.com', '123456789', true, 2),
-('Murilo Benício', '00000000000', 'murilo@email.com', '123456789', true, 2),
-('Mateus Orvalho', '00000000000', 'mateus@email.com', '123456789', true, 2),
-('Daniel Alcantara', '00000000000', 'daniel@email.com', '123456789', true, 2),
-('Geovana Dontal', '00000000000', 'geovana@email.com', '123456789', true, 2),
-('Luiza Albertini', '00000000000', 'luiza@email.com', '123456789', true, 2),
-('Marta Oliveira', '00000000000', 'marta@email.com', '123456789', true, 2),
-('Joao Alves', '00000000000', 'joao@email.com', '123456789', true, 2),
-('Victor Augusto', '00000000000', 'victor@email.com', '123456789', true, 2),
-('Mariela Stefanini', '00000000000', 'mariela@email.com', '123456789', true, 2),
-('Gavin Cristovan', '00000000000', 'gavin@email.com', '123456789',  true,2),
-('Caio Almeida', '00000000000', 'caio@email.com', '123456789', true, 2);
+insert into tb_user (name, cpf, login, password, status) values
+('Danilo Ranéa', '00000000000', 'danilo@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Joao Vitor', '00000000000', 'joao@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Paulo Honotos', '00000000000', 'paulo@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Sillas Cavalcante', '00000000000', 'sillas@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Mario Rui Lisboas', '00000000000', 'mario@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Kleber Machado', '00000000000', 'kleber@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Maria Josefina', '00000000000', 'maria@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Larissa Gualberto', '00000000000', 'larissa@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Mariana Rosalina', '00000000000', 'mariana@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Marcos Pedroso', '00000000000', 'marcos@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Murilo Benício', '00000000000', 'murilo@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Mateus Orvalho', '00000000000', 'mateus@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Daniel Alcantara', '00000000000', 'daniel@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Geovana Dontal', '00000000000', 'geovana@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Luiza Albertini', '00000000000', 'luiza@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Marta Oliveira', '00000000000', 'marta@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Joao Alves', '00000000000', 'joao.alves@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Victor Augusto', '00000000000', 'victor@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Mariela Stefanini', '00000000000', 'mariela@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Gavin Cristovan', '00000000000', 'gavin@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi',  true),
+('Caio Almeida', '00000000000', 'caio@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true);
+
+insert into tb_user_role(user_id, role_id) values
+(1,1),
+(2,1),
+(3,1),
+(4,1),
+(5,2),
+(6,2),
+(7,2),
+(8,2),
+(9,2),
+(10,2),
+(11,2),
+(12,2),
+(13,2),
+(14,2),
+(15,2),
+(16,2),
+(17,2),
+(18,2),
+(19,2),
+(20,2),
+(21,2);
 
 -- insert into tb_address (zip_code, address, number, address_complement, city, state, country, user_id) values
 -- ('04444000', 'rua senac', 1000, 'A', 'sao paulo', 'sp', 'brasil', 1),

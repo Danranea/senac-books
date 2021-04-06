@@ -1,23 +1,23 @@
 package com.senacbooks.senacbooks.users;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.senacbooks.senacbooks.address.AddressEntity;
 import com.senacbooks.senacbooks.roles.RoleEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "tb_user")
-public class UserEntity implements Serializable {
+public class UserEntity implements Serializable, UserDetails {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,13 +26,19 @@ public class UserEntity implements Serializable {
     private Long id;
     private String name;
     private String cpf;
+
+    @Column(unique = true)
     private String login;
     private String password;
     private Boolean status;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private RoleEntity role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name="tb_user_role",
+            joinColumns = @JoinColumn(name = "user_id"), // chave estrangeira relacionada a classe onde estamos, ou seja, será o produto.(A própria classe)
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<RoleEntity> roles = new HashSet<>();
 
     // @OneToOne(mappedBy = "user")
     // private AddressEntity address;
@@ -81,8 +87,39 @@ public class UserEntity implements Serializable {
         this.login = login;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority()))
+                .collect(Collectors.toList());
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {
@@ -97,8 +134,8 @@ public class UserEntity implements Serializable {
         this.status = status;
     }
 
-    public RoleEntity getRole() {
-        return role;
+    public Set<RoleEntity> getRoles() {
+        return roles;
     }
 
     // public AddressEntity getAddress() {
