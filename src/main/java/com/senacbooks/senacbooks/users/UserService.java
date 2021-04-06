@@ -2,6 +2,9 @@ package com.senacbooks.senacbooks.users;
 
 import java.util.Optional;
 
+import com.senacbooks.senacbooks.address.AddressResource;
+import com.senacbooks.senacbooks.address.AddressService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +16,9 @@ public class UserService {
 
     @Autowired
     private UserRepository repository;
+
+    // @Autowired 
+    // private AddressService addressService;
 
     @Transactional(readOnly = true) 
     public Page<UserDTO> findAllPaged(PageRequest pageRequest) {
@@ -30,6 +36,9 @@ public class UserService {
     @Transactional
     public UserDTO insert(UserDTO dto) {
         UserEntity entity = new UserEntity();
+
+        // addressService.insert(dto.getAddress());
+        
         copyDTOToEntity(dto, entity);
         entity = repository.save(entity);
         return new UserDTO(entity);

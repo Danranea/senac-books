@@ -23,8 +23,8 @@ public class RoleEntity implements Serializable{
     private Long id;
     private String authority;
 
-    @OneToMany(mappedBy = "role")
-    private Set<UserEntity> users;
+    // @OneToMany(mappedBy = "role")
+    // private Set<UserEntity> users;
     
     public RoleEntity() {
     }
