@@ -5,14 +5,21 @@ import java.util.Optional;
 import com.senacbooks.senacbooks.address.AddressResource;
 import com.senacbooks.senacbooks.address.AddressService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
+
+    private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     private UserRepository repository;
@@ -75,5 +82,16 @@ public class UserService {
         entity.setLogin(dto.getLogin());
         entity.setPassword(dto.getPassword());
         entity.setStatus(dto.getStatus());
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        UserEntity user = repository.findByLogin(login);
+        if (user == null){
+            logger.error("User not found: " + login);
+            throw new UsernameNotFoundException("Email not found");
+        }
+        logger.info("User found: " + login);
+        return user;
     }
 }
