@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
 
-import com.senacbooks.senacbooks.users.UserEntity;
+import com.senacbooks.senacbooks.users.UserDTO;
 
 public class AddressDTO implements Serializable {
 
@@ -32,7 +32,7 @@ public class AddressDTO implements Serializable {
     @NotBlank(message = "Campo obrigatório")
     private String country;
 
-    private UserEntity user;
+    // private UserDTO user;
 
     // private Client obj;
 
@@ -126,13 +126,13 @@ public class AddressDTO implements Serializable {
         this.country = country;
     }
 
-    public UserEntity getUserEntity() {
-        return user;
-    }
+    // public UserDTO getUserDTO() {
+    //     return user;
+    // }
 
-    public void setUserEntity(UserEntity user) {
-        this.user = user;
-    }
+    // public void setUserDTO(UserDTO user) {
+    //     this.user = user;
+    // }
 
     @Override
     public int hashCode() {
