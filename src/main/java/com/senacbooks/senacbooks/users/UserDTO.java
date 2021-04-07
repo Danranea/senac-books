@@ -20,12 +20,14 @@ public class UserDTO implements Serializable {
     @NotBlank(message = "Campo obrigatório")
     private String name;
 
+    // TODO - nao pode estar visivel na resquisicao get
     @NotBlank(message = "Campo obrigatório")
     private String cpf;
 
     @NotBlank(message = "Campo obrigatório")
     private String login;
 
+    // TODO - nao pode estar visivel na resquisicao get
     @NotBlank(message = "Campo obrigatório")
     private String password;
 
