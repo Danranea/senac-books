@@ -67,6 +67,6 @@ public class AddressService {
         entity.setCity(dto.getCity());
         entity.setState(dto.getState());
         entity.setCountry(dto.getCountry());
-        entity.setUser(userRepository.getOne(dto.getUser().getId()));
+        // entity.setUser(userRepository.getOne(dto.getUser().getId()));
     }
 }
