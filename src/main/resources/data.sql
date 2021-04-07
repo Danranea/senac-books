@@ -851,8 +851,10 @@ insert into tb_product_category (product_id, category_id) values
 (256,65);
 
 insert into tb_role (authority) values
-('ADMIN'),
-('ESTOQUISTA');
+('ROLE_ADMIN'),
+('ROLE_ESTOQUISTA'),
+('ROLE_VENDEDOR'),
+('ROLE_BAIANO');
 
 insert into tb_user (name, cpf, login, password, status) values
 ('Danilo Ranéa', '00000000000', 'danilo@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
@@ -879,20 +881,31 @@ insert into tb_user (name, cpf, login, password, status) values
 
 insert into tb_user_role(user_id, role_id) values
 (1,1),
+(1,2),
+(1,3),
+(1,4),
 (2,1),
+(2,2),
+(2,4),
 (3,1),
+(3,2),
 (4,1),
 (5,2),
 (6,2),
 (7,2),
 (8,2),
+(8,3),
+(8,4),
 (9,2),
+(10,1),
 (10,2),
 (11,2),
 (12,2),
 (13,2),
 (14,2),
+(15,1),
 (15,2),
+(16,1),
 (16,2),
 (17,2),
 (18,2),

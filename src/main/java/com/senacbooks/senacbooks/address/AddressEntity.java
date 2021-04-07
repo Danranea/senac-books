@@ -120,6 +120,10 @@ public class AddressEntity implements Serializable {
     //     return user;
     // }
 
+    // public void setUser(UserEntity user) {
+    //     this.user = user;
+    // }
+
     @Override
     public int hashCode() {
         final int prime = 31;
