@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.senacbooks.senacbooks.users.UserDTO;
+import com.senacbooks.senacbooks.users.UserEntity;
+import com.senacbooks.senacbooks.users.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,18 +16,21 @@ import org.springframework.transaction.annotation.Transactional;
 public class AddressService {
     
     @Autowired
-    private AddressRepository repository;
+    private AddressRepository addressRepository;
+    
+    @Autowired
+    private UserRepository userRepository;
 
     @Transactional(readOnly = true)
     public List<AddressDTO> findAll() {
-        List<AddressEntity> list = repository.findAll();
+        List<AddressEntity> list = addressRepository.findAll();
 
         return list.stream().map(x -> new AddressDTO(x)).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public AddressDTO findById(Long id) {
-        Optional<AddressEntity> obj = repository.findById(id);
+        Optional<AddressEntity> obj = addressRepository.findById(id);
         AddressEntity entity = obj.orElseThrow();
 
         return new AddressDTO(entity);
@@ -33,23 +40,23 @@ public class AddressService {
     public AddressDTO insert(AddressDTO dto) {
         AddressEntity entity = new AddressEntity();
         copyDTOToEntity(dto, entity);
-        entity = repository.save(entity);
+        entity = addressRepository.save(entity);
 
         return new AddressDTO(entity);
     }
 
     @Transactional
     public AddressDTO update(Long id, AddressDTO dto) {
-        AddressEntity entity = repository.getOne(id);
+        AddressEntity entity = addressRepository.getOne(id);
         copyDTOToEntity(dto, entity);
-        entity = repository.save(entity);
+        entity = addressRepository.save(entity);
 
         return new AddressDTO(entity);
     }
 
     @Transactional
     public void delete(Long id) {
-        repository.deleteById(id);
+        addressRepository.deleteById(id);
     }
 
     public void copyDTOToEntity(AddressDTO dto, AddressEntity entity) {
@@ -60,5 +67,6 @@ public class AddressService {
         entity.setCity(dto.getCity());
         entity.setState(dto.getState());
         entity.setCountry(dto.getCountry());
+        entity.setUser(userRepository.getOne(dto.getUser().getId()));
     }
 }
