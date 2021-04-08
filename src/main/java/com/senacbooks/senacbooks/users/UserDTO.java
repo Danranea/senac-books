@@ -28,6 +28,7 @@ public class UserDTO implements Serializable {
     private String login;
 
     // TODO - nao pode estar visivel na resquisicao get
+    @Size(min = 3, message = "Mínimo de 5 caracteres")
     @NotBlank(message = "Campo obrigatório")
     private String password;
 
