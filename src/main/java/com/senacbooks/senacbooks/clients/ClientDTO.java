@@ -23,17 +23,19 @@ public class ClientDTO {
     @Size(min = 3, message = "Mínimo de 5 caracteres")
     @NotBlank(message = "Campo obrigatório")
     private String password;
+    private Boolean status;
     
     public ClientDTO() {
     }
 
-    public ClientDTO(Long id, String firstName, String lastName, String cpf, String login, String password) {
+    public ClientDTO(Long id, String firstName, String lastName, String cpf, String login, String password, Boolean status) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.cpf = cpf;
         this.login = login;
         this.password = password;
+        this.status = status;
     }
 
     public ClientDTO(ClientEntity entity) {
@@ -43,6 +45,7 @@ public class ClientDTO {
         this.cpf = entity.getCpf();
         this.login = entity.getLogin();
         this.password = entity.getPassword();
+        this.status = entity.getStatus();
     }
 
     public Long getId() {
@@ -93,7 +96,11 @@ public class ClientDTO {
         this.password = password;
     }
 
-    
+    public Boolean getStatus() {
+        return status;
+    }
 
-    
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 }

@@ -26,19 +26,20 @@ public class ClientEntity implements Serializable{
 
     @Column(unique = true)
     private String login;
-    
     private String password;
+    private Boolean status;
     
     public ClientEntity() {
     }
 
-    public ClientEntity(Long id, String firstName, String lastName, String cpf, String login, String password) {
+    public ClientEntity(Long id, String firstName, String lastName, String cpf, String login, String password, Boolean status) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.cpf = cpf;
         this.login = login;
         this.password = password;
+        this.status = status;
     }
 
     public Long getId() {
@@ -89,6 +90,14 @@ public class ClientEntity implements Serializable{
         this.password = password;
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -113,9 +122,4 @@ public class ClientEntity implements Serializable{
             return false;
         return true;
     }
-
-    
-    
-    
-
 }
