@@ -11,7 +11,7 @@ before_deploy:
 deploy:
   provider: script
   script:
-    docker tag senacbooks:latest $DOCKERHUB_USER/senackbooks:latest;
+    docker tag senacbooks:latest $DOCKERHUB_USER/senacbooks:latest;
     docker push $DOCKERHUB_USER/senacbooks;
   on:
     branch: main
