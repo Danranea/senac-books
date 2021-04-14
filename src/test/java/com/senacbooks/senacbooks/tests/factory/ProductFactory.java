@@ -1,7 +1,5 @@
 package com.senacbooks.senacbooks.tests.factory;
 
-import java.time.Instant;
-
 import com.senacbooks.senacbooks.categories.CategoryEntity;
 import com.senacbooks.senacbooks.products.ProductDTO;
 import com.senacbooks.senacbooks.products.ProductEntity;
