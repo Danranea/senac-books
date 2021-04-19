@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.com/Danranea/senac-books.svg?branch=main)](https://travis-ci.com/Danranea/senac-books)

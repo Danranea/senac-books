@@ -1,0 +1,17 @@
+language: java
+jdk:
+  - openjdk11
+before_install:
+  - chmod +x mvnw
+  - ./mvnw clean package
+script:
+  - docker build -t senacbooks:latest .
+before_deploy:
+  echo "$DOCKERHUB_PASSWORD" | docker login --username "$DOCKERHUB_USER" --password-stdin
+deploy:
+  provider: script
+  script:
+    docker tag senacbooks:latest $DOCKERHUB_USER/senacbooks:latest;
+    docker push $DOCKERHUB_USER/senacbooks;
+  on:
+    branch: main
