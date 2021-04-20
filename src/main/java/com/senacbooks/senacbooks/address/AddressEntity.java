@@ -7,10 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.senacbooks.senacbooks.users.UserEntity;
+import com.senacbooks.senacbooks.clients.ClientEntity;
 
 @Entity
 @Table(name = "tb_address")
@@ -29,14 +29,11 @@ public class AddressEntity implements Serializable {
     private String state;
     private String country;
 
-    // @OneToOne
-    // @JoinColumn(name = "user_id")
-    // private UserEntity user;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private ClientEntity client;
 
-    // @ManyToOne
-    // @JoinColumn(name = "client_id")
-    // private Client client;
-
+    
     public AddressEntity() {
     }
 
@@ -115,14 +112,14 @@ public class AddressEntity implements Serializable {
     public void setCountry(String country) {
         this.country = country;
     }
+    
+    public ClientEntity getClient() {
+        return client;
+    }
 
-    // public UserEntity getUser() {
-    //     return user;
-    // }
-
-    // public void setUser(UserEntity user) {
-    //     this.user = user;
-    // }
+    public void setClient(ClientEntity client) {
+        this.client = client;
+    }
 
     @Override
     public int hashCode() {

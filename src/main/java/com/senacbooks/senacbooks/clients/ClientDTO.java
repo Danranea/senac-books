@@ -1,10 +1,16 @@
 package com.senacbooks.senacbooks.clients;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.senacbooks.senacbooks.address.AddressDTO;
+import com.senacbooks.senacbooks.address.AddressEntity;
+
 public class ClientDTO {
-    
+
     private Long id;
 
     @Size(min = 5, message = "Mínimo de 5 caracteres")
@@ -24,11 +30,15 @@ public class ClientDTO {
     @NotBlank(message = "Campo obrigatório")
     private String password;
     private Boolean status;
+
+    private List<AddressDTO> addresses = new ArrayList<>();
+
     
     public ClientDTO() {
     }
 
-    public ClientDTO(Long id, String firstName, String lastName, String cpf, String login, String password, Boolean status) {
+    public ClientDTO(Long id, String firstName, String lastName, String cpf, String login, String password,
+            Boolean status) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -46,6 +56,10 @@ public class ClientDTO {
         this.login = entity.getLogin();
         this.password = entity.getPassword();
         this.status = entity.getStatus();
+
+        for (AddressEntity addressEntity : entity.getAddresses()) {
+            this.addresses.add(new AddressDTO(addressEntity));
+        }
     }
 
     public Long getId() {
@@ -103,4 +117,9 @@ public class ClientDTO {
     public void setStatus(Boolean status) {
         this.status = status;
     }
+
+    public List<AddressDTO> getAddresses() {
+        return addresses;
+    }
+
 }

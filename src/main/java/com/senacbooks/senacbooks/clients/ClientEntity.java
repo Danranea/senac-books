@@ -1,26 +1,31 @@
 package com.senacbooks.senacbooks.clients;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.senacbooks.senacbooks.address.AddressEntity;
 
 @Entity
 @Table(name = "tb_client")
-public class ClientEntity implements Serializable{
-    
+public class ClientEntity implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;
-    
+
     @Column(unique = true)
     private String cpf;
 
@@ -28,11 +33,15 @@ public class ClientEntity implements Serializable{
     private String login;
     private String password;
     private Boolean status;
-    
-    public ClientEntity() {
+
+    @OneToMany(mappedBy = "client")
+    private Set<AddressEntity> addresses = new HashSet<>();
+
+     public ClientEntity() {
     }
 
-    public ClientEntity(Long id, String firstName, String lastName, String cpf, String login, String password, Boolean status) {
+    public ClientEntity(Long id, String firstName, String lastName, String cpf, String login, String password,
+            Boolean status) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -96,6 +105,10 @@ public class ClientEntity implements Serializable{
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public Set<AddressEntity> getAddresses() {
+        return addresses;
     }
 
     @Override

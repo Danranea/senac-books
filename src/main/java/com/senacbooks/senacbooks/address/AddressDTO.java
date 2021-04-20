@@ -4,7 +4,10 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
 
+import com.senacbooks.senacbooks.clients.ClientDTO;
 import com.senacbooks.senacbooks.users.UserDTO;
+
+import ch.qos.logback.core.net.server.Client;
 
 public class AddressDTO implements Serializable {
 
@@ -32,9 +35,7 @@ public class AddressDTO implements Serializable {
     @NotBlank(message = "Campo obrigatório")
     private String country;
 
-    // private UserDTO user;
-
-    // private Client obj;
+    private ClientDTO client;
 
     public AddressDTO() {
     }
