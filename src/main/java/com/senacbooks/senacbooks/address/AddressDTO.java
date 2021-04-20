@@ -35,13 +35,16 @@ public class AddressDTO implements Serializable {
     @NotBlank(message = "Campo obrigatório")
     private String country;
 
+    @NotBlank(message = "Campo Obrigatório")
+    private Boolean payment;
+
     private ClientDTO client;
 
     public AddressDTO() {
     }
 
     public AddressDTO(Long id, String zipCode, String address, Integer number, String addressComplement, String city,
-            String state, String country) {
+            String state, String country, Boolean payment) {
         this.id = id;
         this.zipCode = zipCode;
         this.address = address;
@@ -50,6 +53,7 @@ public class AddressDTO implements Serializable {
         this.city = city;
         this.state = state;
         this.country = country;
+        this.payment = payment;
     }
 
     public AddressDTO(AddressEntity entity) {
@@ -61,6 +65,7 @@ public class AddressDTO implements Serializable {
         this.city = entity.getCity();
         this.state = entity.getState();
         this.country = entity.getCountry();
+        this.payment = entity.getPayment();
     }
 
     public Long getId() {
@@ -126,6 +131,7 @@ public class AddressDTO implements Serializable {
     public void setCountry(String country) {
         this.country = country;
     }
+    
 
     // public UserDTO getUser() {
     //     return user;
@@ -134,6 +140,14 @@ public class AddressDTO implements Serializable {
     // public void setUser(UserDTO user) {
     //     this.user = user;
     // }
+
+    public Boolean getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Boolean payment) {
+        this.payment = payment;
+    }
 
     @Override
     public int hashCode() {
