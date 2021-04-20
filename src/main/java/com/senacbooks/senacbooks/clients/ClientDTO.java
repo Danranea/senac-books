@@ -3,6 +3,7 @@ package com.senacbooks.senacbooks.clients;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -13,20 +14,23 @@ public class ClientDTO {
 
     private Long id;
 
-    @Size(min = 5, message = "Mínimo de 5 caracteres")
+    @Size(min = 3, message = "Mínimo de 3 caracteres")
     @NotBlank(message = "Campo obrigatório")
     private String firstName;
 
+    @Size(min = 3, message = "Mínimo de 3 caracteres")
     @NotBlank(message = "Campo obrigatório")
     private String lastName;
 
     @NotBlank(message = "Campo obrigatório")
+    @Column(unique = true)
     private String cpf;
 
     @NotBlank(message = "Campo obrigatório")
+    @Column(unique = true)
     private String login;
 
-    @Size(min = 3, message = "Mínimo de 5 caracteres")
+    @Size(min = 3, message = "Mínimo de 3 caracteres")
     @NotBlank(message = "Campo obrigatório")
     private String password;
     private Boolean status;
