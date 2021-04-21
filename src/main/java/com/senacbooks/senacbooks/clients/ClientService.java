@@ -5,14 +5,18 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ClientService {
+public class ClientService{
     
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
     public Page<ClientDTO> findAllPaged(PageRequest pageRequest) {
@@ -31,6 +35,7 @@ public class ClientService {
     public ClientDTO insert(ClientDTO dto) {
         ClientEntity entity = new ClientEntity();
         copyDTOToEntity(dto, entity);
+        entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         entity = clientRepository.save(entity);
         return new ClientDTO();
     }
@@ -66,5 +71,5 @@ public class ClientService {
         entity.setCpf(dto.getCpf());
         entity.setLogin(dto.getLogin());
         entity.setPassword(dto.getPassword());
-    } 
+    }
 }
