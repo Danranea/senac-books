@@ -852,7 +852,8 @@ insert into tb_product_category (product_id, category_id) values
 
 insert into tb_role (authority) values
 ('ROLE_ADMIN'),
-('ROLE_ESTOQUISTA');
+('ROLE_ESTOQUISTA'),
+('ROLE_CLIENTE');
 
 insert into tb_user (name, cpf, login, password, status) values
 ('Danilo Ranéa', '00000000000', 'danilo@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
@@ -907,32 +908,55 @@ insert into tb_user_role(user_id, role_id) values
 (21,2);
 
 insert into tb_client (first_name, last_name, cpf, login, password, status) values
-('Danilo', 'Ranéa', '00000000000', 'danilo@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
-('Joao', 'Vitor', '00000000001', 'joao@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
-('Paulo', 'Honotos', '00000000002', 'paulo@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
-('Sillas', 'Cavalcante', '00000000003', 'sillas@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
-('Mario', 'Rui Lisboas', '00000000004', 'mario@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
-('Kleber', 'Machado', '00000000005', 'kleber@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
-('Maria', 'Josefina', '00000000006', 'maria@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
-('Larissa', 'Gualberto', '00000000007', 'larissa@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
-('Mariana', 'Rosalina', '00000000008', 'mariana@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
-('Marcos', 'Pedroso', '00000000009', 'marcos@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
-('Murilo', 'Benício', '00000000010', 'murilo@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
-('Mateus', 'Orvalho', '00000000012', 'mateus@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
-('Daniel', 'Alcantara', '00000000013', 'daniel@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
-('Geovana', 'Dontal', '00000000014', 'geovana@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
-('Luiza', 'Albertini', '00000000015', 'luiza@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
-('Marta', 'Oliveira', '00000000016', 'marta@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
-('Joao', 'Alves', '00000000017', 'joao.alves@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
-('Victor', 'Augusto', '00000000018', 'victor@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
-('Mariela', 'Stefanini', '00000000019', 'mariela@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
-('Gavin', 'Cristovan', '00000000020', 'gavin@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi',  true),
-('Caio', 'Almeida', '00000000021', 'caio@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true);
+('Danilo', 'Ranéa', '00000000000', 'danilo_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Joao', 'Vitor', '00000000001', 'joao_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Paulo', 'Honotos', '00000000002', 'paulo_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Sillas', 'Cavalcante', '00000000003', 'sillas_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Mario', 'Rui Lisboas', '00000000004', 'mario_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Kleber', 'Machado', '00000000005', 'kleber_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Maria', 'Josefina', '00000000006', 'maria_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Larissa', 'Gualberto', '00000000007', 'larissa_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Mariana', 'Rosalina', '00000000008', 'mariana_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Marcos', 'Pedroso', '00000000009', 'marcos_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Murilo', 'Benício', '00000000010', 'murilo_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Mateus', 'Orvalho', '00000000012', 'mateus_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Daniel', 'Alcantara', '00000000013', 'daniel_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Geovana', 'Dontal', '00000000014', 'geovana_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Luiza', 'Albertini', '00000000015', 'luiza_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Marta', 'Oliveira', '00000000016', 'marta_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Joao', 'Alves', '00000000017', 'joao.alves_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Victor', 'Augusto', '00000000018', 'victor_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Mariela', 'Stefanini', '00000000019', 'mariela_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true),
+('Gavin', 'Cristovan', '00000000020', 'gavin_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi',  true),
+('Caio', 'Almeida', '00000000021', 'caio_cliente@email.com', '$2y$12$QLId0Y.pSj6jF6WhaYlYoeV8vZXW4X.uK2DLzOxvdFU6X8di2gVfi', true);
+
+insert into tb_client_role(client_id, role_id) values
+(1,3),
+(2,3),
+(3,3),
+(4,3),
+(5,3),
+(6,3),
+(7,3),
+(8,3),
+(9,3),
+(10,3),
+(11,3),
+(12,3),
+(13,3),
+(14,3),
+(15,3),
+(16,3),
+(17,3),
+(18,3),
+(19,3),
+(20,3),
+(21,3);
 
 insert into tb_address (zip_code, address, number, address_complement, city, state, country, payment, client_id) values
 ('04444000', 'rua senac', 1000, 'A', 'sao paulo', 'sp', 'brasil', true, 1),
-('04444000', 'rua senac', 1000, 'A', 'sao paulo', 'sp', 'brasil', true, 1),
-('04444000', 'rua senac', 1000, 'A', 'sao paulo', 'sp', 'brasil', true, 1),
+('04444000', 'rua senac', 1000, 'A', 'sao paulo', 'sp', 'brasil', false, 1),
+('04444000', 'rua senac', 1000, 'A', 'sao paulo', 'sp', 'brasil', false, 1),
 ('04444000', 'rua senac', 1000, 'A', 'sao paulo', 'sp', 'brasil', true, 2),
 ('04444000', 'rua senac', 1000, 'A', 'sao paulo', 'sp', 'brasil', true, 3),
 ('04444000', 'rua senac', 1000, 'A', 'sao paulo', 'sp', 'brasil', true, 4),

@@ -1,22 +1,33 @@
 package com.senacbooks.senacbooks.clients;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.senacbooks.senacbooks.address.AddressEntity;
+import com.senacbooks.senacbooks.roles.RoleEntity;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "tb_client")
-public class ClientEntity implements Serializable {
+public class ClientEntity implements Serializable, UserDetails {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,6 +47,14 @@ public class ClientEntity implements Serializable {
 
     @OneToMany(mappedBy = "client")
     private Set<AddressEntity> addresses = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name="tb_client_role",
+            joinColumns = @JoinColumn(name = "client_id"), // chave estrangeira relacionada a classe onde estamos, ou seja, será o produto.(A própria classe)
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<RoleEntity> roles = new HashSet<>();
 
      public ClientEntity() {
     }
@@ -133,6 +152,37 @@ public class ClientEntity implements Serializable {
                 return false;
         } else if (!id.equals(other.id))
             return false;
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
         return true;
     }
 }

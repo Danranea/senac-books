@@ -1,7 +1,5 @@
 package com.senacbooks.senacbooks.products.images;
 
-import com.senacbooks.senacbooks.products.ProductDTO;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -14,8 +12,6 @@ public class ImageDTO implements Serializable {
     private String imgUrl;
     private Boolean principal;
     private Boolean status;
-
-    private ProductDTO product;
 
     public ImageDTO() {
     }
