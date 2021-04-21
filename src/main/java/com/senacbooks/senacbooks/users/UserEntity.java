@@ -25,6 +25,8 @@ public class UserEntity implements Serializable, UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @Column(unique = true)
     private String cpf;
 
     @Column(unique = true)
