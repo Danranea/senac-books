@@ -33,7 +33,7 @@ public class AddressDTO implements Serializable {
     private String state;
 
     @NotBlank(message = "Campo obrigatório")
-    private String country;
+    private String neighborhood;
 
     @NotBlank(message = "Campo Obrigatório")
     private Boolean payment;
@@ -44,7 +44,7 @@ public class AddressDTO implements Serializable {
     }
 
     public AddressDTO(Long id, String zipCode, String address, Integer number, String addressComplement, String city,
-            String state, String country, Boolean payment) {
+            String state, String neighborhood, Boolean payment) {
         this.id = id;
         this.zipCode = zipCode;
         this.address = address;
@@ -52,7 +52,7 @@ public class AddressDTO implements Serializable {
         this.addressComplement = addressComplement;
         this.city = city;
         this.state = state;
-        this.country = country;
+        this.neighborhood = neighborhood;
         this.payment = payment;
     }
 
@@ -64,7 +64,7 @@ public class AddressDTO implements Serializable {
         this.addressComplement = entity.getAddressComplement();
         this.city = entity.getCity();
         this.state = entity.getState();
-        this.country = entity.getCountry();
+        this.neighborhood = entity.getNeighborhood();
         this.payment = entity.getPayment();
     }
 
@@ -124,12 +124,12 @@ public class AddressDTO implements Serializable {
         this.state = state;
     }
 
-    public String getCountry() {
-        return country;
+    public String getNeighborhood() {
+        return neighborhood;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setNeighborhood(String country) {
+        this.neighborhood = neighborhood;
     }
     
 

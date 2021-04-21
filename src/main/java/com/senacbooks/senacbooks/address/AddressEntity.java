@@ -27,7 +27,7 @@ public class AddressEntity implements Serializable {
     private String addressComplement;
     private String city;
     private String state;
-    private String country;
+    private String neighborhood;
     private Boolean payment;
 
     @ManyToOne
@@ -39,7 +39,7 @@ public class AddressEntity implements Serializable {
     }
 
     public AddressEntity(Long id, String zipCode, String address, Integer number, String addressComplement, String city,
-            String state, String country, Boolean payment) {
+            String state, String neighborhood, Boolean payment) {
         this.id = id;
         this.zipCode = zipCode;
         this.address = address;
@@ -47,7 +47,7 @@ public class AddressEntity implements Serializable {
         this.addressComplement = addressComplement;
         this.city = city;
         this.state = state;
-        this.country = country;
+        this.neighborhood = neighborhood;
         this.payment = payment;
     }
 
@@ -107,12 +107,12 @@ public class AddressEntity implements Serializable {
         this.state = state;
     }
 
-    public String getCountry() {
-        return country;
+    public String getNeighborhood() {
+        return neighborhood;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setNeighborhood(String country) {
+        this.neighborhood = neighborhood;
     }
 
     public Boolean getPayment() {
