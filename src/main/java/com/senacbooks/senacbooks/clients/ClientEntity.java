@@ -130,6 +130,11 @@ public class ClientEntity implements Serializable, UserDetails {
         return addresses;
     }
 
+    public Set<RoleEntity> getRoles() {
+      return roles;
+    }
+
+
     @Override
     public int hashCode() {
         final int prime = 31;

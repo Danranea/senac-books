@@ -60,13 +60,17 @@ public class AddressService {
     }
 
     public void copyDTOToEntity(AddressDTO dto, AddressEntity entity) {
-        entity.setZipCode(dto.getZipCode());
         entity.setAddress(dto.getAddress());
-        entity.setNumber(dto.getNumber());
         entity.setAddressComplement(dto.getAddressComplement());
         entity.setCity(dto.getCity());
-        entity.setState(dto.getState());
         entity.setNeighborhood(dto.getNeighborhood());
-        // entity.setUser(userRepository.getOne(dto.getUser().getId()));
+        entity.setNumber(dto.getNumber());
+        entity.setZipCode(dto.getZipCode());
+        entity.setPayment(dto.getPayment());
+        entity.setState(dto.getState());
+    }
+
+    public AddressEntity getAddress(Long addressId) {
+        return addressRepository.findById(addressId).orElseThrow();
     }
 }

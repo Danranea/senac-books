@@ -1,7 +1,9 @@
 package com.senacbooks.senacbooks.clients;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
@@ -9,6 +11,7 @@ import javax.validation.constraints.Size;
 
 import com.senacbooks.senacbooks.address.AddressDTO;
 import com.senacbooks.senacbooks.address.AddressEntity;
+import com.senacbooks.senacbooks.roles.RoleDTO;
 
 public class ClientDTO {
 
@@ -36,6 +39,8 @@ public class ClientDTO {
     private Boolean status;
 
     private List<AddressDTO> addresses = new ArrayList<>();
+
+    private Set<RoleDTO> roles = new HashSet<>();
 
     
     public ClientDTO() {
@@ -126,4 +131,7 @@ public class ClientDTO {
         return addresses;
     }
 
+    public Set<RoleDTO> getRoles() {
+        return roles;
+    }
 }
