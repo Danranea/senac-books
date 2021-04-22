@@ -79,11 +79,11 @@ public class ClientService{
         if (entity.getStatus()) {
             entity.setStatus(false);
             entity = clientRepository.save(entity);
-            message = "Cliente " + entity.getFirstName() + " " + entity.getLastName() + " excluído com sucesso";
+            message = "Cliente " + entity.getFirstName() + " " + entity.getLastName() + " inativado com sucesso";
         } else {
-            entity.setStatus(false);
+            entity.setStatus(true);
             entity = clientRepository.save(entity);
-            message = "Cliente " + entity.getFirstName() + " " + entity.getLastName() + " ativado com sucesso";
+            message = "Cliente " + entity.getFirstName() + " " + entity.getLastName() + " reactivado com sucesso";
         }
         return message;
     }
