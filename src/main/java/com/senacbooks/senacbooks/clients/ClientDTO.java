@@ -13,6 +13,8 @@ import com.senacbooks.senacbooks.address.AddressDTO;
 import com.senacbooks.senacbooks.address.AddressEntity;
 import com.senacbooks.senacbooks.roles.RoleDTO;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 public class ClientDTO {
 
     private Long id;
@@ -27,6 +29,7 @@ public class ClientDTO {
 
     @NotBlank(message = "Campo obrigatório")
     @Column(unique = true)
+    @CPF(message = "CPF invalido")
     private String cpf;
 
     @NotBlank(message = "Campo obrigatório")
