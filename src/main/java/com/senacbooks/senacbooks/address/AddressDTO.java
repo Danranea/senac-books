@@ -5,9 +5,6 @@ import java.io.Serializable;
 import javax.validation.constraints.NotBlank;
 
 import com.senacbooks.senacbooks.clients.ClientDTO;
-import com.senacbooks.senacbooks.users.UserDTO;
-
-import ch.qos.logback.core.net.server.Client;
 
 public class AddressDTO implements Serializable {
 
@@ -38,7 +35,7 @@ public class AddressDTO implements Serializable {
     @NotBlank(message = "Campo Obrigatório")
     private Boolean payment;
 
-    private ClientDTO client;
+    // private ClientDTO client;
 
     public AddressDTO() {
     }
@@ -128,7 +125,7 @@ public class AddressDTO implements Serializable {
         return neighborhood;
     }
 
-    public void setNeighborhood(String country) {
+    public void setNeighborhood(String neighborhood) {
         this.neighborhood = neighborhood;
     }
     

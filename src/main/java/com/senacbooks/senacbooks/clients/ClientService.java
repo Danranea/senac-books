@@ -2,6 +2,14 @@ package com.senacbooks.senacbooks.clients;
 
 import java.util.Optional;
 
+import com.senacbooks.senacbooks.address.AddressDTO;
+import com.senacbooks.senacbooks.address.AddressEntity;
+import com.senacbooks.senacbooks.address.AddressRepository;
+import com.senacbooks.senacbooks.address.AddressService;
+import com.senacbooks.senacbooks.roles.RoleDTO;
+import com.senacbooks.senacbooks.roles.RoleEntity;
+import com.senacbooks.senacbooks.roles.RoleRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +22,15 @@ public class ClientService{
     
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    private AddressRepository addressRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private AddressService addressService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -35,9 +52,15 @@ public class ClientService{
     public ClientDTO insert(ClientDTO dto) {
         ClientEntity entity = new ClientEntity();
         copyDTOToEntity(dto, entity);
+        entity.setStatus(true);
         entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         entity = clientRepository.save(entity);
-        return new ClientDTO();
+        
+        for (AddressEntity addressEntity: entity.getAddresses()) {
+            addClientToAddress(entity.getId(), addressEntity.getId());
+        }
+
+        return new ClientDTO(entity);
     }
 
     @Transactional
@@ -56,11 +79,11 @@ public class ClientService{
         if (entity.getStatus()) {
             entity.setStatus(false);
             entity = clientRepository.save(entity);
-            message = "Cliente " + entity.getFirstName() + " " + entity.getLastName() + " excluído com sucesso";
+            message = "Cliente " + entity.getFirstName() + " " + entity.getLastName() + " inativado com sucesso";
         } else {
-            entity.setStatus(false);
+            entity.setStatus(true);
             entity = clientRepository.save(entity);
-            message = "Cliente " + entity.getFirstName() + " " + entity.getLastName() + " ativado com sucesso";
+            message = "Cliente " + entity.getFirstName() + " " + entity.getLastName() + " reactivado com sucesso";
         }
         return message;
     }
@@ -71,5 +94,29 @@ public class ClientService{
         entity.setCpf(dto.getCpf());
         entity.setLogin(dto.getLogin());
         entity.setPassword(dto.getPassword());
+
+        for (RoleDTO roleDTO : dto.getRoles()) {
+            RoleEntity role = roleRepository.getOne(roleDTO.getId());
+            entity.getRoles().add(role);
+        }
+
+        entity.getAddresses().clear();
+        for (AddressDTO addressDTO : dto.getAddresses()) {
+            AddressEntity addressEntity = new AddressEntity();
+            addressService.copyDTOToEntity(addressDTO, addressEntity);
+            addressEntity = addressRepository.save(addressEntity);
+            entity.getAddresses().add(addressEntity);
+        }
+    }
+
+    public ClientEntity getClientEntity(Long id){
+        return clientRepository.findById(id).orElseThrow();
+    }
+
+    private void addClientToAddress(Long clientId, Long addressId) {
+        ClientEntity clientEntity = getClientEntity(clientId);
+        AddressEntity addressEntity = addressService.getAddress(addressId);
+
+        addressEntity.setClient(clientEntity);
     }
 }

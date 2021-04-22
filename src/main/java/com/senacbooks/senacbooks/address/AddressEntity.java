@@ -111,7 +111,7 @@ public class AddressEntity implements Serializable {
         return neighborhood;
     }
 
-    public void setNeighborhood(String country) {
+    public void setNeighborhood(String neighborhood) {
         this.neighborhood = neighborhood;
     }
 
