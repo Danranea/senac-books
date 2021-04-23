@@ -26,9 +26,6 @@ public class UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired 
-    private AddressService addressService;
-
     @Transactional(readOnly = true) 
     public Page<UserDTO> findAllPaged(PageRequest pageRequest) {
         Page<UserEntity> list = userRepository.findAll(pageRequest);
@@ -85,6 +82,13 @@ public class UserService {
         entity.setLogin(dto.getLogin());
         entity.setPassword(dto.getPassword());
         entity.setStatus(dto.getStatus());
+        entity.setZipCode(dto.getZipCode());
+        entity.setAddress(dto.getAddress());
+        entity.setNumber(dto.getNumber());
+        entity.setAddressComplement(dto.getAddressComplement());
+        entity.setCity(dto.getCity());
+        entity.setState(dto.getState());
+        entity.setCountry(dto.getCountry());
         entity.getRoles().clear();
         for (RoleDTO roleDTO : dto.getRoles()) {
             RoleEntity role = roleRepository.getOne(roleDTO.getId());
