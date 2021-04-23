@@ -56,8 +56,6 @@ public class UserDTO implements Serializable {
 
     Set<RoleDTO> roles = new HashSet<>();
 
-    // private AddressDTO address;
-
     public UserDTO() {
     }
 

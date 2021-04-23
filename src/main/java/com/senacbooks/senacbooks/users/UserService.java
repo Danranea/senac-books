@@ -2,7 +2,6 @@ package com.senacbooks.senacbooks.users;
 
 import java.util.Optional;
 
-import com.senacbooks.senacbooks.address.AddressService;
 import com.senacbooks.senacbooks.roles.RoleDTO;
 import com.senacbooks.senacbooks.roles.RoleEntity;
 import com.senacbooks.senacbooks.roles.RoleRepository;
@@ -46,8 +45,6 @@ public class UserService {
         entity.setStatus(true);
         entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         entity = userRepository.save(entity);
-
-        // addressService.insert(dto.getAddress());
         return new UserDTO(entity);
     }
 
@@ -95,5 +92,4 @@ public class UserService {
             entity.getRoles().add(role);
         }
     }
-
 }
