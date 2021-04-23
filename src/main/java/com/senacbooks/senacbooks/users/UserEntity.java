@@ -6,11 +6,19 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.senacbooks.senacbooks.address.AddressEntity;
 import com.senacbooks.senacbooks.roles.RoleEntity;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,28 +41,39 @@ public class UserEntity implements Serializable, UserDetails {
     private String login;
     private String password;
     private Boolean status;
+    private String zipCode;
+    private String address;
+    private Integer number;
+    private String addressComplement;
+    private String city;
+    private String state;
+    private String country;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name="tb_user_role",
-            joinColumns = @JoinColumn(name = "user_id"), // chave estrangeira relacionada a classe onde estamos, ou seja, será o produto.(A própria classe)
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
+    @JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"), // chave estrangeira relacionada a
+                                                                                   // classe onde estamos, ou seja, será
+                                                                                   // o produto.(A própria classe)
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
-
-    // @OneToOne(mappedBy = "user")
-    // private AddressEntity address;
 
     public UserEntity() {
     }
 
-    public UserEntity(Long id, String name, String cpf, String login, String password, Boolean status) {
+    public UserEntity(Long id, String name, String cpf, String login, String password, Boolean status, String zipCode,
+            String address, Integer number, String addressComplement, String city, String state, String country) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
         this.login = login;
         this.password = password;
         this.status = status;
+        this.zipCode = zipCode;
+        this.address = address;
+        this.number = number;
+        this.addressComplement = addressComplement;
+        this.city = city;
+        this.state = state;
+        this.country = country;
     }
 
     public Long getId() {
@@ -80,7 +99,7 @@ public class UserEntity implements Serializable, UserDetails {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-    
+
     public String getLogin() {
         return login;
     }
@@ -91,8 +110,7 @@ public class UserEntity implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority()))
-                .collect(Collectors.toList());
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority())).collect(Collectors.toList());
     }
 
     public String getPassword() {
@@ -136,13 +154,65 @@ public class UserEntity implements Serializable, UserDetails {
         this.status = status;
     }
 
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    public String getAddressComplement() {
+        return addressComplement;
+    }
+
+    public void setAddressComplement(String addressComplement) {
+        this.addressComplement = addressComplement;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public Set<RoleEntity> getRoles() {
         return roles;
     }
-
-    // public AddressEntity getAddress() {
-    //     return address;
-    // }
 
     @Override
     public int hashCode() {
