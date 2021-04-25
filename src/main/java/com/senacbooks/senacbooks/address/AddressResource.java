@@ -3,6 +3,8 @@ package com.senacbooks.senacbooks.address;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,20 +39,34 @@ public class AddressResource {
     }
 
     @PostMapping
-    public ResponseEntity<AddressDTO> insert(@RequestBody AddressDTO dto) {
+    public ResponseEntity<AddressDTO> insert(@Valid @RequestBody AddressDTO dto) {
         dto = service.insert(dto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
+        return ResponseEntity.created(uri).body(dto);
+    }
+
+    @PostMapping("/client/{clientId}")
+    public ResponseEntity<AddressDTO> insert(@Valid @RequestBody AddressDTO dto, @PathVariable Long clientId) {
+        dto = service.insertByClientId(dto, clientId);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
     
     @PutMapping(value="/{id}")
-    public ResponseEntity<AddressDTO> update(@PathVariable Long id, @RequestBody AddressDTO body) {
+    public ResponseEntity<AddressDTO> update(@PathVariable Long id, @Valid @RequestBody AddressDTO body) {
         AddressDTO dto = service.update(id, body);
         return ResponseEntity.ok().body(dto);
     }
 
+    @PutMapping(value = "/client/{clientId}")
+    public ResponseEntity<List<AddressDTO>> updateByClientId(@PathVariable Long clientId, @Valid @RequestBody AddressDTO addressDto) {
+        List<AddressDTO> dto = service.updateByClientId(clientId, addressDto);
+        return ResponseEntity.ok().body(dto);
+    }
+
     @DeleteMapping(value = "/{id}")
-    public void delte(@PathVariable Long id) {
-        service.delete(id);
+    public String delte(@PathVariable Long id) {
+        String retorno = service.delete(id);
+        return retorno;
     }
 }
