@@ -29,6 +29,7 @@ public class AddressEntity implements Serializable {
     private String state;
     private String neighborhood;
     private Boolean payment;
+    private Boolean status;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -39,7 +40,7 @@ public class AddressEntity implements Serializable {
     }
 
     public AddressEntity(Long id, String zipCode, String address, Integer number, String addressComplement, String city,
-            String state, String neighborhood, Boolean payment) {
+            String state, String neighborhood, Boolean payment, Boolean status) {
         this.id = id;
         this.zipCode = zipCode;
         this.address = address;
@@ -49,6 +50,7 @@ public class AddressEntity implements Serializable {
         this.state = state;
         this.neighborhood = neighborhood;
         this.payment = payment;
+        this.status = status;
     }
 
     public Long getId() {
@@ -121,6 +123,14 @@ public class AddressEntity implements Serializable {
 
     public void setPayment(Boolean payment) {
         this.payment = payment;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public ClientEntity getClient() {

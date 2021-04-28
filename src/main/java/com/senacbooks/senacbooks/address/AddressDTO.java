@@ -3,8 +3,8 @@ package com.senacbooks.senacbooks.address;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
-
-import com.senacbooks.senacbooks.clients.ClientDTO;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 public class AddressDTO implements Serializable {
 
@@ -18,7 +18,7 @@ public class AddressDTO implements Serializable {
     @NotBlank(message = "Campo obrigatório")
     private String address;
 
-    @NotBlank(message = "Campo obrigatório")
+    @Positive(message = "Campo deve ser maior que 0")
     private Integer number;
 
     private String addressComplement;
@@ -32,8 +32,11 @@ public class AddressDTO implements Serializable {
     @NotBlank(message = "Campo obrigatório")
     private String neighborhood;
 
-    @NotBlank(message = "Campo Obrigatório")
+    @NotNull
     private Boolean payment;
+
+    @NotNull
+    private Boolean status;
 
     // private ClientDTO client;
 
@@ -41,7 +44,7 @@ public class AddressDTO implements Serializable {
     }
 
     public AddressDTO(Long id, String zipCode, String address, Integer number, String addressComplement, String city,
-            String state, String neighborhood, Boolean payment) {
+            String state, String neighborhood, Boolean payment, Boolean status) {
         this.id = id;
         this.zipCode = zipCode;
         this.address = address;
@@ -51,6 +54,7 @@ public class AddressDTO implements Serializable {
         this.state = state;
         this.neighborhood = neighborhood;
         this.payment = payment;
+        this.status = status;
     }
 
     public AddressDTO(AddressEntity entity) {
@@ -63,6 +67,7 @@ public class AddressDTO implements Serializable {
         this.state = entity.getState();
         this.neighborhood = entity.getNeighborhood();
         this.payment = entity.getPayment();
+        this.status = entity.getStatus();
     }
 
     public Long getId() {
@@ -144,6 +149,14 @@ public class AddressDTO implements Serializable {
 
     public void setPayment(Boolean payment) {
         this.payment = payment;
+    }
+
+    public Boolean getStatus() {
+      return status;
+    }
+
+    public void setStatus(Boolean status) {
+      this.status = status;
     }
 
     @Override
