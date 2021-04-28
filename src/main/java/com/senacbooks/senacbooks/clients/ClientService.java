@@ -67,6 +67,7 @@ public class ClientService{
     public ClientDTO update(Long id, ClientDTO dto) {
         ClientEntity entity = clientRepository.getOne(id);
         copyDTOToEntity(dto, entity);
+        entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         entity = clientRepository.save(entity);
         return new ClientDTO(entity);
     }
