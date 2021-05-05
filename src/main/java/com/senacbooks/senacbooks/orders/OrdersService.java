@@ -1,5 +1,7 @@
 package com.senacbooks.senacbooks.orders;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import com.senacbooks.senacbooks.users.UserDTO;
@@ -17,9 +19,14 @@ public class OrdersService {
     private OrdersRepository ordersRepository;
     
     @Transactional(readOnly = true) 
-    public Page<OrdersDTO> findAllPaged(PageRequest pageRequest) {
-        Page<OrdersEntity> list = OrdersRepository.findAllPaged(pageRequest);
-        return list.map(x -> new OrdersDTO(x));
+    public List<OrdersDTO> findAllPaged(PageRequest pageRequest) {
+        List<OrdersEntity> list = ordersRepository.findAll();
+        List<OrdersDTO> listDto = new ArrayList<>();
+        for (OrdersEntity ordersEntity : list) {
+            OrdersDTO dto = new OrdersDTO(ordersEntity);
+            listDto.add(dto);
+        }
+        return listDto;
     }
 
     @Transactional(readOnly = true)

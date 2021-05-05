@@ -1,6 +1,7 @@
 package com.senacbooks.senacbooks.orders;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -28,14 +29,14 @@ public class OrdersResource {
     private OrdersService service;
 
     @GetMapping
-    public ResponseEntity<Page<OrdersDTO>> findAllPaged(
+    public ResponseEntity<List<OrdersDTO>> findAllPaged(
         @RequestParam(value = "page", defaultValue = "0") Integer page,
         @RequestParam(value = "linesPerPage", defaultValue = "40") Integer linesPerPage,
         @RequestParam(value = "direction", defaultValue = "ASC") String direction,
         @RequestParam(value = "orderBy", defaultValue = "id") String orderBy
     ) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
-        Page<OrdersDTO> list = service.findAllPaged(pageRequest);
+        List<OrdersDTO> list = service.findAllPaged(pageRequest);
         return ResponseEntity.ok().body(list);
     }
 

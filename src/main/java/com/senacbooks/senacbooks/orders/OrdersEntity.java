@@ -7,6 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.senacbooks.senacbooks.address.AddressEntity;
@@ -23,28 +28,40 @@ public class OrdersEntity implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private ClientEntity cliente;
-    /* private List<ProductEntity> products; */
+    @ManyToOne
+    @JoinColumn(name="client_id")
+    private ClientEntity client;
+    
+    @ManyToMany
+    @JoinTable(
+            name="tb_order_product",
+            joinColumns = @JoinColumn(name = "order_id"), // chave estrangeira relacionada a classe onde estamos, ou seja, será o produto.(A própria classe)
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private List<ProductEntity> products;
     private String payment;
+
+    @OneToOne
+    @JoinColumn(name="address_id")
     private AddressEntity address;
     private Double value;
     private Double shipping;
-    private Double total_value;
+    private Double totalValue;
     private Boolean status;
     
     public OrdersEntity() {
     }
 
-    public OrdersEntity(Long id, ClientEntity cliente, List<ProductEntity> products, String payment,
-            AddressEntity address, Double value, Double shipping, Double total_value, Boolean status) {
+    public OrdersEntity(Long id, ClientEntity client, List<ProductEntity> products, String payment,
+            AddressEntity address, Double value, Double shipping, Double totalValue, Boolean status) {
         this.id = id;
-        this.cliente = cliente;
-        /* this.products = products; */
+        this.client = client;
+        this.products = products;
         this.payment = payment;
         this.address = address;
         this.value = value;
         this.shipping = shipping;
-        this.total_value = total_value;
+        this.totalValue = totalValue;
         this.status = status;
     }
 
@@ -62,21 +79,21 @@ public class OrdersEntity implements Serializable{
         this.id = id;
     }
     
-    public ClientEntity getCliente() {
-        return cliente;
+    public ClientEntity getClient() {
+        return client;
     }
     
-    public void setCliente(ClientEntity cliente) {
-        this.cliente = cliente;
+    public void setClient(ClientEntity client) {
+        this.client = client;
     }
     
-    /* public List<ProductEntity> getProducts() {
+    public List<ProductEntity> getProducts() {
         return products;
     }
     
     public void setProducts(List<ProductEntity> products) {
         this.products = products;
-    } */
+    }
     
     public String getPayment() {
         return payment;
@@ -95,7 +112,11 @@ public class OrdersEntity implements Serializable{
     }
     
     public Double getValue() {
-        return value;
+        double sum = 0;
+        for (ProductEntity productEntity : this.products) {
+            sum += productEntity.getPrice();
+        }
+        return sum;
     }
     
     public void setValue(Double value) {
@@ -110,12 +131,12 @@ public class OrdersEntity implements Serializable{
         this.shipping = shipping;
     }
     
-    public Double getTotal_value() {
-        return total_value;
+    public Double getTotalValue() {
+        return totalValue;
     }
     
-    public void setTotal_value(Double total_value) {
-        this.total_value = total_value;
+    public void setTotalValue(Double totalValue) {
+        this.totalValue = totalValue;
     }
     
     public Boolean getStatus() {

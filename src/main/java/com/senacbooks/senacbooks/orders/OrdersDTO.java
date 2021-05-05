@@ -5,8 +5,11 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
+import com.senacbooks.senacbooks.address.AddressDTO;
 import com.senacbooks.senacbooks.address.AddressEntity;
+import com.senacbooks.senacbooks.clients.ClientDTO;
 import com.senacbooks.senacbooks.clients.ClientEntity;
+import com.senacbooks.senacbooks.products.ProductDTO;
 import com.senacbooks.senacbooks.products.ProductEntity;
 
 public class OrdersDTO implements Serializable {
@@ -16,16 +19,16 @@ public class OrdersDTO implements Serializable {
     private Long id;
     
     @NotBlank(message = "Campo obrigatório")
-    private ClientEntity cliente;
+    private ClientDTO client;
 
-    /* @NotBlank(message = "Campo obrigatório")
-    private List<ProductEntity> products;
- */
+    @NotBlank(message = "Campo obrigatório")
+    private List<ProductDTO> products;
+
     @NotBlank(message = "Campo obrigatório")
     private String payment;
 
     @NotBlank(message = "Campo obrigatório")
-    private AddressEntity address;
+    private AddressDTO address;
 
     @NotBlank(message = "Campo obrigatório")
     private Double value;
@@ -34,7 +37,7 @@ public class OrdersDTO implements Serializable {
     private Double shipping;
 
     @NotBlank(message = "Campo obrigatório")
-    private Double total_value;
+    private Double totalValue;
 
     @NotBlank(message = "Campo obrigatório")
     private Boolean status;
@@ -42,28 +45,28 @@ public class OrdersDTO implements Serializable {
     public OrdersDTO() {
     }
 
-    public OrdersDTO(Long id, ClientEntity cliente, List<ProductEntity> products, String payment, AddressEntity address,
-            Double value, Double shipping, Double total_value, Boolean status) {
+    public OrdersDTO(Long id, ClientDTO client, List<ProductDTO> products, String payment, AddressDTO address,
+            Double value, Double shipping, Double totalValue, Boolean status) {
         this.id = id;
-        this.cliente = cliente;
-        /* this.products = products; */
+        this.client = client;
+        this.products = products;
         this.payment = payment;
         this.address = address;
         this.value = value;
         this.shipping = shipping;
-        this.total_value = total_value;
+        this.totalValue = totalValue;
         this.status = status;
     }
 
     public OrdersDTO(OrdersEntity entity) {
         this.id = entity.getId();
-        this.cliente = entity.getCliente();
-        /* this.products = entity.getProducts(); */
+        this.client = new ClientDTO(entity.getClient());
+        entity.getProducts().forEach(product -> this.products.add(new ProductDTO(product)));
         this.payment = entity.getPayment();
-        this.address = entity.getAddress();
-        this.value = entity.getTotal_value();
+        this.address = new AddressDTO(entity.getAddress());
+        this.value = entity.getValue();
         this.shipping = entity.getShipping();
-        this.total_value = entity.getTotal_value();
+        this.totalValue = entity.getTotalValue();
         this.status = entity.getStatus();
     }
 
@@ -79,21 +82,21 @@ public class OrdersDTO implements Serializable {
         this.id = id;
     }
 
-    public ClientEntity getCliente() {
-        return cliente;
+    public ClientDTO getCliente() {
+        return client;
     }
 
-    public void setCliente(ClientEntity cliente) {
-        this.cliente = cliente;
+    public void setCliente(ClientDTO cliente) {
+        this.client = cliente;
     }
 
-    /* public List<ProductEntity> getProducts() {
+    public List<ProductDTO> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductEntity> products) {
+    public void setProducts(List<ProductDTO> products) {
         this.products = products;
-    } */
+    }
 
     public String getPayment() {
         return payment;
@@ -103,11 +106,11 @@ public class OrdersDTO implements Serializable {
         this.payment = payment;
     }
 
-    public AddressEntity getAddress() {
+    public AddressDTO getAddress() {
         return address;
     }
 
-    public void setAddress(AddressEntity address) {
+    public void setAddress(AddressDTO address) {
         this.address = address;
     }
 
@@ -127,12 +130,12 @@ public class OrdersDTO implements Serializable {
         this.shipping = shipping;
     }
 
-    public Double getTotal_value() {
-        return total_value;
+    public Double getTotalValue() {
+        return totalValue;
     }
 
-    public void setTotal_value(Double total_value) {
-        this.total_value = total_value;
+    public void setTotalValue(Double totalValue) {
+        this.totalValue = totalValue;
     }
 
     public Boolean getStatus() {
@@ -142,6 +145,5 @@ public class OrdersDTO implements Serializable {
     public void setStatus(Boolean status) {
         this.status = status;
     }
-
        
 }

@@ -977,3 +977,9 @@ insert into tb_address (zip_code, address, number, address_complement, city, sta
 ('04444000', 'rua senac', 1000, 'A', 'sao paulo', 'sp', 'jurubatuba', true, true, 19),
 ('04444000', 'rua senac', 1000, 'A', 'sao paulo', 'sp', 'jurubatuba', true, true, 20),
 ('04444000', 'rua senac', 1000, 'A', 'sao paulo', 'sp', 'jurubatuba', true, true, 21);
+
+insert into tb_orders (client_id, payment, address_id, value,shipping,total_value, status) values
+(1,'cartao', 1, 34.50, 9.90, 44.40, true);
+
+insert into tb_order_product (order_id, product_id) values
+(1,1);
