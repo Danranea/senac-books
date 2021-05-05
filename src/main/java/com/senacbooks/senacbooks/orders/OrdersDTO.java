@@ -18,9 +18,9 @@ public class OrdersDTO implements Serializable {
     @NotBlank(message = "Campo obrigatório")
     private ClientEntity cliente;
 
-    @NotBlank(message = "Campo obrigatório")
+    /* @NotBlank(message = "Campo obrigatório")
     private List<ProductEntity> products;
-
+ */
     @NotBlank(message = "Campo obrigatório")
     private String payment;
 
@@ -37,16 +37,16 @@ public class OrdersDTO implements Serializable {
     private Double total_value;
 
     @NotBlank(message = "Campo obrigatório")
-    private String status;
+    private Boolean status;
     
     public OrdersDTO() {
     }
 
     public OrdersDTO(Long id, ClientEntity cliente, List<ProductEntity> products, String payment, AddressEntity address,
-            Double value, Double shipping, Double total_value, String status) {
+            Double value, Double shipping, Double total_value, Boolean status) {
         this.id = id;
         this.cliente = cliente;
-        this.products = products;
+        /* this.products = products; */
         this.payment = payment;
         this.address = address;
         this.value = value;
@@ -58,7 +58,7 @@ public class OrdersDTO implements Serializable {
     public OrdersDTO(OrdersEntity entity) {
         this.id = entity.getId();
         this.cliente = entity.getCliente();
-        this.products = entity.getProducts();
+        /* this.products = entity.getProducts(); */
         this.payment = entity.getPayment();
         this.address = entity.getAddress();
         this.value = entity.getTotal_value();
@@ -87,13 +87,13 @@ public class OrdersDTO implements Serializable {
         this.cliente = cliente;
     }
 
-    public List<ProductEntity> getProducts() {
+    /* public List<ProductEntity> getProducts() {
         return products;
     }
 
     public void setProducts(List<ProductEntity> products) {
         this.products = products;
-    }
+    } */
 
     public String getPayment() {
         return payment;
@@ -135,11 +135,11 @@ public class OrdersDTO implements Serializable {
         this.total_value = total_value;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

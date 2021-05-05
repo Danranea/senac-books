@@ -24,22 +24,22 @@ public class OrdersEntity implements Serializable{
     private Long id;
     
     private ClientEntity cliente;
-    private List<ProductEntity> products;
+    /* private List<ProductEntity> products; */
     private String payment;
     private AddressEntity address;
     private Double value;
     private Double shipping;
     private Double total_value;
-    private String status;
+    private Boolean status;
     
     public OrdersEntity() {
     }
 
     public OrdersEntity(Long id, ClientEntity cliente, List<ProductEntity> products, String payment,
-            AddressEntity address, Double value, Double shipping, Double total_value, String status) {
+            AddressEntity address, Double value, Double shipping, Double total_value, Boolean status) {
         this.id = id;
         this.cliente = cliente;
-        this.products = products;
+        /* this.products = products; */
         this.payment = payment;
         this.address = address;
         this.value = value;
@@ -70,13 +70,13 @@ public class OrdersEntity implements Serializable{
         this.cliente = cliente;
     }
     
-    public List<ProductEntity> getProducts() {
+    /* public List<ProductEntity> getProducts() {
         return products;
     }
     
     public void setProducts(List<ProductEntity> products) {
         this.products = products;
-    }
+    } */
     
     public String getPayment() {
         return payment;
@@ -118,12 +118,12 @@ public class OrdersEntity implements Serializable{
         this.total_value = total_value;
     }
     
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
     
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus(boolean b) {
+        this.status = b;
     }
 
     @Override
