@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.senacbooks.senacbooks.clients.ClientEntity;
+
 @Entity
 @Table(name = "tb_payment")
 public class PaymentEntity implements Serializable{
@@ -22,6 +24,7 @@ public class PaymentEntity implements Serializable{
     private Integer validity;
     private Integer cvv;
     private Integer plots;
+    private Boolean status;
     
     public PaymentEntity() {
     }
@@ -81,6 +84,14 @@ public class PaymentEntity implements Serializable{
 
     public void setPlots(Integer plots) {
         this.plots = plots;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     @Override
