@@ -23,17 +23,20 @@ public class PaymentDTO implements Serializable{
     private Integer cvv;
     
     private Integer plots;
+
+    private Boolean status;
     
     public PaymentDTO() {
     }
 
-    public PaymentDTO(Long id, String payment, Integer numberCard, Integer validity, Integer cvv, Integer plots) {
+    public PaymentDTO(Long id, String payment, Integer numberCard, Integer validity, Integer cvv, Integer plots, Boolean status) {
         this.id = id;
         this.payment = payment;
         this.numberCard = numberCard;
         this.validity = validity;
         this.cvv = cvv;
         this.plots = plots;
+        this.status = status;
     }
 
     public PaymentDTO(PaymentEntity entity) {
@@ -43,6 +46,7 @@ public class PaymentDTO implements Serializable{
         this.validity = entity.getValidity();
         this.cvv = entity.getCvv();
         this.plots = entity.getPlots();
+        this.status = entity.getStatus();
     }
 
     public Long getId() {
@@ -91,6 +95,14 @@ public class PaymentDTO implements Serializable{
 
     public void setPlots(Integer plots) {
         this.plots = plots;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     @Override
