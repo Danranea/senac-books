@@ -74,7 +74,7 @@ public class PaymentService {
     public void copyDTOToEntity(PaymentDTO dto, PaymentEntity entity) {
         entity.setPayment(dto.getPayment());
         entity.setNumberCard(dto.getNumberCard());
-        entity.setValidity(dto.getValidity());
+        entity.setValidThru(dto.getValidThru());
         entity.setCvv(dto.getCvv());
         entity.setPlots(dto.getPlots());
         

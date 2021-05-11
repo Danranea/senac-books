@@ -23,7 +23,7 @@ public class PaymentEntity implements Serializable{
     private Long id;
     private String payment;
     private Integer numberCard;
-    private Integer validity;
+    private Integer validThru;
     private Integer cvv;
     private Integer plots;
     private Boolean status;
@@ -35,11 +35,11 @@ public class PaymentEntity implements Serializable{
     public PaymentEntity() {
     }
 
-    public PaymentEntity(Long id, String payment, Integer numberCard, Integer validity, Integer cvv, Integer plots) {
+    public PaymentEntity(Long id, String payment, Integer numberCard, Integer validThru, Integer cvv, Integer plots) {
         this.id = id;
         this.payment = payment;
         this.numberCard = numberCard;
-        this.validity = validity;
+        this.validThru = validThru;
         this.cvv = cvv;
         this.plots = plots;
     }
@@ -68,12 +68,12 @@ public class PaymentEntity implements Serializable{
         this.numberCard = numberCard;
     }
 
-    public Integer getValidity() {
-        return validity;
+    public Integer getValidThru() {
+        return validThru;
     }
 
-    public void setValidity(Integer validity) {
-        this.validity = validity;
+    public void setValidThru(Integer validThru) {
+        this.validThru = validThru;
     }
 
     public Integer getCvv() {
