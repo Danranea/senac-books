@@ -1,16 +1,14 @@
 package com.senacbooks.senacbooks.orders;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
 import com.senacbooks.senacbooks.address.AddressDTO;
-import com.senacbooks.senacbooks.address.AddressEntity;
 import com.senacbooks.senacbooks.clients.ClientDTO;
-import com.senacbooks.senacbooks.clients.ClientEntity;
 import com.senacbooks.senacbooks.products.ProductDTO;
-import com.senacbooks.senacbooks.products.ProductEntity;
 
 public class OrdersDTO implements Serializable {
     
@@ -22,7 +20,7 @@ public class OrdersDTO implements Serializable {
     private ClientDTO client;
 
     @NotBlank(message = "Campo obrigatório")
-    private List<ProductDTO> products;
+    private List<ProductDTO> products = new ArrayList<>();
 
     @NotBlank(message = "Campo obrigatório")
     private String payment;
