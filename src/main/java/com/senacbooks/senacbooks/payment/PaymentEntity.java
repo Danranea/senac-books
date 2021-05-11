@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.senacbooks.senacbooks.clients.ClientEntity;
@@ -25,6 +27,10 @@ public class PaymentEntity implements Serializable{
     private Integer cvv;
     private Integer plots;
     private Boolean status;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private ClientEntity client;
     
     public PaymentEntity() {
     }
@@ -92,6 +98,14 @@ public class PaymentEntity implements Serializable{
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public ClientEntity getClient(){
+        return client;
+    }
+
+    public void setClient(ClientEntity client) {
+        this.client = client;
     }
 
     @Override

@@ -1,9 +1,11 @@
 package com.senacbooks.senacbooks.payment;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.senacbooks.senacbooks.clients.ClientEntity;
 import com.senacbooks.senacbooks.clients.ClientService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,5 +78,39 @@ public class PaymentService {
         entity.setCvv(dto.getCvv());
         entity.setPlots(dto.getPlots());
         
+    }
+
+    public PaymentEntity getPayment(Long paymentId) {
+        return paymentRepository.findById(paymentId).orElseThrow();
+    }
+
+    public List<PaymentDTO> updateByClientId(Long clientId, PaymentDTO dto) {
+        List<PaymentEntity> paymentDTOs = paymentRepository.findByClientId(clientId);
+        List<PaymentDTO> paymentsDTOs = new ArrayList<>();
+
+        for (PaymentEntity payment : paymentDTOs) {
+            if (payment.getId().equals(dto.getId())){
+                payment.setStatus(dto.getStatus());
+                payment = paymentRepository.save(payment);
+                PaymentDTO paymentDTO = new PaymentDTO(payment);
+                paymentsDTOs.add(paymentDTO);
+            }else{
+                payment.setStatus(false);
+                payment = paymentRepository.save(payment);
+                PaymentDTO paymentDTO = new PaymentDTO(payment);
+                paymentsDTOs.add(paymentDTO);
+            }
+        }
+        return paymentsDTOs;
+    }
+
+    public PaymentDTO insertByClientId(PaymentDTO dto, Long clientId) {
+        PaymentEntity entity = new PaymentEntity();
+        ClientEntity client = clientService.getClientEntity(clientId);
+        copyDTOToEntity(dto, entity);
+        entity.setClient(client);
+        entity = paymentRepository.save(entity);
+
+        return new PaymentDTO(entity);
     }
 }
