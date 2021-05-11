@@ -8,6 +8,7 @@ import javax.validation.constraints.NotBlank;
 
 import com.senacbooks.senacbooks.address.AddressDTO;
 import com.senacbooks.senacbooks.clients.ClientDTO;
+import com.senacbooks.senacbooks.payment.PaymentDTO;
 import com.senacbooks.senacbooks.products.ProductDTO;
 
 public class OrdersDTO implements Serializable {
@@ -22,8 +23,7 @@ public class OrdersDTO implements Serializable {
     @NotBlank(message = "Campo obrigatório")
     private List<ProductDTO> products = new ArrayList<>();
 
-    @NotBlank(message = "Campo obrigatório")
-    private String payment;
+    private PaymentDTO payment;
 
     @NotBlank(message = "Campo obrigatório")
     private AddressDTO address;
@@ -43,7 +43,7 @@ public class OrdersDTO implements Serializable {
     public OrdersDTO() {
     }
 
-    public OrdersDTO(Long id, ClientDTO client, List<ProductDTO> products, String payment, AddressDTO address,
+    public OrdersDTO(Long id, ClientDTO client, List<ProductDTO> products, PaymentDTO payment, AddressDTO address,
             Double value, Double shipping, Double totalValue, Boolean status) {
         this.id = id;
         this.client = client;
@@ -60,7 +60,9 @@ public class OrdersDTO implements Serializable {
         this.id = entity.getId();
         this.client = new ClientDTO(entity.getClient());
         entity.getProducts().forEach(product -> this.products.add(new ProductDTO(product)));
-        this.payment = entity.getPayment();
+        if (entity.getPayment() != null) {            
+            this.payment = new PaymentDTO(entity.getPayment());
+        }
         this.address = new AddressDTO(entity.getAddress());
         this.value = entity.getValue();
         this.shipping = entity.getShipping();
@@ -96,11 +98,11 @@ public class OrdersDTO implements Serializable {
         this.products = products;
     }
 
-    public String getPayment() {
+    public PaymentDTO getPayment() {
         return payment;
     }
 
-    public void setPayment(String payment) {
+    public void setPayment(PaymentDTO payment) {
         this.payment = payment;
     }
 
