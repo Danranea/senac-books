@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import com.senacbooks.senacbooks.address.AddressEntity;
 import com.senacbooks.senacbooks.clients.ClientEntity;
+import com.senacbooks.senacbooks.payment.PaymentEntity;
 import com.senacbooks.senacbooks.products.ProductEntity;
 
 @Entity
@@ -39,7 +40,10 @@ public class OrdersEntity implements Serializable{
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private List<ProductEntity> products;
-    private String payment;
+    
+    @OneToOne
+    @JoinColumn(name="payment_id")
+    private PaymentEntity payment;
 
     @OneToOne
     @JoinColumn(name="address_id")
@@ -52,7 +56,7 @@ public class OrdersEntity implements Serializable{
     public OrdersEntity() {
     }
 
-    public OrdersEntity(Long id, ClientEntity client, List<ProductEntity> products, String payment,
+    public OrdersEntity(Long id, ClientEntity client, List<ProductEntity> products, PaymentEntity payment,
             AddressEntity address, Double value, Double shipping, Double totalValue, Boolean status) {
         this.id = id;
         this.client = client;
@@ -95,11 +99,11 @@ public class OrdersEntity implements Serializable{
         this.products = products;
     }
     
-    public String getPayment() {
+    public PaymentEntity getPayment() {
         return payment;
     }
     
-    public void setPayment(String payment) {
+    public void setPayment(PaymentEntity payment) {
         this.payment = payment;
     }
     
