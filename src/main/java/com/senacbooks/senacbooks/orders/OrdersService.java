@@ -1,8 +1,11 @@
 package com.senacbooks.senacbooks.orders;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.senacbooks.senacbooks.address.AddressEntity;
 import com.senacbooks.senacbooks.address.AddressRepository;
@@ -54,6 +57,12 @@ public class OrdersService {
         Optional<OrdersEntity> obj = ordersRepository.findById(id);
         OrdersEntity entity = obj.orElseThrow();
         return new OrdersDTO(entity);
+    }
+
+    @Transactional(readOnly = true)
+    public List<OrdersDTO> findByClientId(Long id) {
+        List<OrdersEntity> obj = ordersRepository.findByClientId(id);
+        return obj.stream().map(x -> new OrdersDTO(x)).collect(Collectors.toList());
     }
 
     @Transactional
