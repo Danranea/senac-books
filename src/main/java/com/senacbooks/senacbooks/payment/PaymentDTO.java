@@ -14,13 +14,9 @@ public class PaymentDTO implements Serializable{
     
     private Long id;
 
-    @NotBlank(message = "Campo obrigatório")
     private String numberCard;
 
-    @NotBlank(message = "Campo obrigatório")
     private String validThru;
-
-    @Positive(message = "Number must be higher than zero")
     private Integer cvv;
 
     private Boolean status;

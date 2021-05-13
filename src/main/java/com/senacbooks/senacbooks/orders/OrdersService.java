@@ -4,6 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.senacbooks.senacbooks.address.AddressEntity;
+import com.senacbooks.senacbooks.address.AddressRepository;
+import com.senacbooks.senacbooks.categories.CategoryDTO;
+import com.senacbooks.senacbooks.categories.CategoryEntity;
+import com.senacbooks.senacbooks.clients.ClientEntity;
+import com.senacbooks.senacbooks.clients.ClientRepository;
+import com.senacbooks.senacbooks.payment.PaymentEntity;
+import com.senacbooks.senacbooks.payment.PaymentRepository;
+import com.senacbooks.senacbooks.products.ProductDTO;
+import com.senacbooks.senacbooks.products.ProductEntity;
+import com.senacbooks.senacbooks.products.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -14,6 +25,18 @@ public class OrdersService {
 
     @Autowired
     private OrdersRepository ordersRepository;
+
+    @Autowired
+    private AddressRepository addressRepository;
+
+    @Autowired
+    private ClientRepository clientRepository;
+
+    @Autowired
+    private PaymentRepository paymentRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
     
     @Transactional(readOnly = true) 
     public List<OrdersDTO> findAllPaged(PageRequest pageRequest) {
@@ -68,5 +91,27 @@ public class OrdersService {
     }
 
     private void copyDTOToEntity(OrdersDTO dto, OrdersEntity entity) {
+        entity.setShipping(dto.getShipping());
+        entity.setTotalValue(dto.getTotalValue());
+        entity.setValue(dto.getValue());
+
+        AddressEntity addressEntity = addressRepository.getOne(dto.getAddress().getId());
+        entity.setAddress(addressEntity);
+
+        ClientEntity clientEntity = clientRepository.getOne(dto.getClient().getId());
+        entity.setClient(clientEntity);
+
+        if (dto.getPayment() != null){
+            PaymentEntity paymentEntity = paymentRepository.getOne(dto.getPayment().getId());
+            entity.setPayment(paymentEntity);
+        }else{
+            entity.setPayment(null);
+        }
+
+        for (ProductDTO productDTO : dto.getProducts()) {
+            ProductEntity productEntity = productRepository.getOne(productDTO.getId());
+            entity.getProducts().add(productEntity);
+        }
+
     }
 }
