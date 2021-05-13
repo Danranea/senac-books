@@ -22,7 +22,7 @@ public class PaymentEntity implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String payment;
-    private String numberCard;
+    private Integer numberCard;
     private Integer validThru;
     private Integer cvv;
     private Integer plots;
@@ -35,7 +35,7 @@ public class PaymentEntity implements Serializable{
     public PaymentEntity() {
     }
 
-    public PaymentEntity(Long id, String payment, String numberCard, Integer validThru, Integer cvv, Integer plots) {
+    public PaymentEntity(Long id, String payment, Integer numberCard, Integer validThru, Integer cvv, Integer plots) {
         this.id = id;
         this.payment = payment;
         this.numberCard = numberCard;
@@ -60,11 +60,11 @@ public class PaymentEntity implements Serializable{
         this.payment = payment;
     }
 
-    public String getNumberCard() {
+    public Integer getNumberCard() {
         return numberCard;
     }
 
-    public void setNumberCard(String numberCard) {
+    public void setNumberCard(Integer numberCard) {
         this.numberCard = numberCard;
     }
 
