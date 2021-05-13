@@ -21,11 +21,9 @@ public class PaymentEntity implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String payment;
-    private Integer numberCard;
-    private Integer validThru;
+    private String numberCard;
+    private String validThru;
     private Integer cvv;
-    private Integer plots;
     private Boolean status;
 
     @ManyToOne
@@ -35,13 +33,11 @@ public class PaymentEntity implements Serializable{
     public PaymentEntity() {
     }
 
-    public PaymentEntity(Long id, String payment, Integer numberCard, Integer validThru, Integer cvv, Integer plots) {
+    public PaymentEntity(Long id, String numberCard, String validThru, Integer cvv) {
         this.id = id;
-        this.payment = payment;
         this.numberCard = numberCard;
         this.validThru = validThru;
         this.cvv = cvv;
-        this.plots = plots;
     }
 
     public Long getId() {
@@ -52,27 +48,19 @@ public class PaymentEntity implements Serializable{
         this.id = id;
     }
 
-    public String getPayment() {
-        return payment;
-    }
-
-    public void setPayment(String payment) {
-        this.payment = payment;
-    }
-
-    public Integer getNumberCard() {
+    public String getNumberCard() {
         return numberCard;
     }
 
-    public void setNumberCard(Integer numberCard) {
+    public void setNumberCard(String numberCard) {
         this.numberCard = numberCard;
     }
 
-    public Integer getValidThru() {
+    public String getValidThru() {
         return validThru;
     }
 
-    public void setValidThru(Integer validThru) {
+    public void setValidThru(String validThru) {
         this.validThru = validThru;
     }
 
@@ -82,14 +70,6 @@ public class PaymentEntity implements Serializable{
 
     public void setCvv(Integer cvv) {
         this.cvv = cvv;
-    }
-
-    public Integer getPlots() {
-        return plots;
-    }
-
-    public void setPlots(Integer plots) {
-        this.plots = plots;
     }
 
     public Boolean getStatus() {

@@ -1,8 +1,12 @@
 package com.senacbooks.senacbooks.payment;
 
+import com.senacbooks.senacbooks.clients.ClientDTO;
+import com.senacbooks.senacbooks.clients.ClientEntity;
+
 import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
 public class PaymentDTO implements Serializable{
     
@@ -11,42 +15,36 @@ public class PaymentDTO implements Serializable{
     private Long id;
 
     @NotBlank(message = "Campo obrigatório")
-    private String payment;
+    private String numberCard;
 
     @NotBlank(message = "Campo obrigatório")
-    private Integer numberCard;
+    private String validThru;
 
-    @NotBlank(message = "Campo obrigatório")
-    private Integer validThru;
-
-    @NotBlank(message = "Campo obrigatório")
+    @Positive(message = "Number must be higher than zero")
     private Integer cvv;
-    
-    private Integer plots;
 
     private Boolean status;
+
+    private ClientDTO client;
     
     public PaymentDTO() {
     }
 
-    public PaymentDTO(Long id, String payment, Integer numberCard, Integer validThru, Integer cvv, Integer plots, Boolean status) {
+    public PaymentDTO(Long id, String numberCard, String validThru, Integer cvv, Boolean status) {
         this.id = id;
-        this.payment = payment;
         this.numberCard = numberCard;
         this.validThru = validThru;
         this.cvv = cvv;
-        this.plots = plots;
         this.status = status;
     }
 
     public PaymentDTO(PaymentEntity entity) {
         this.id = entity.getId();
-        this.payment = entity.getPayment();
         this.numberCard = entity.getNumberCard();
         this.validThru = entity.getValidThru();
         this.cvv = entity.getCvv();
-        this.plots = entity.getPlots();
         this.status = entity.getStatus();
+        this.client = new ClientDTO(entity.getClient());
     }
 
     public Long getId() {
@@ -57,27 +55,19 @@ public class PaymentDTO implements Serializable{
         this.id = id;
     }
 
-    public String getPayment() {
-        return payment;
-    }
-
-    public void setPayment(String payment) {
-        this.payment = payment;
-    }
-
-    public Integer getNumberCard() {
+    public String getNumberCard() {
         return numberCard;
     }
 
-    public void setNumberCard(Integer numberCard) {
+    public void setNumberCard(String numberCard) {
         this.numberCard = numberCard;
     }
 
-    public Integer getValidThru() {
+    public String getValidThru() {
         return validThru;
     }
 
-    public void setValidThru(Integer validThru) {
+    public void setValidThru(String validThru) {
         this.validThru = validThru;
     }
 
@@ -89,20 +79,20 @@ public class PaymentDTO implements Serializable{
         this.cvv = cvv;
     }
 
-    public Integer getPlots() {
-        return plots;
-    }
-
-    public void setPlots(Integer plots) {
-        this.plots = plots;
-    }
-
     public Boolean getStatus() {
         return status;
     }
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public ClientDTO getClient() {
+        return client;
+    }
+
+    public void setClient(ClientDTO client) {
+        this.client = client;
     }
 
     @Override
