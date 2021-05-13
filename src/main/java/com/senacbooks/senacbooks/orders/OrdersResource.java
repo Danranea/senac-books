@@ -45,6 +45,12 @@ public class OrdersResource {
         return ResponseEntity.ok().body(dto);
     }
 
+    @GetMapping(value = "/client/{id}")
+    public ResponseEntity<List<OrdersDTO>> findByClientId(@PathVariable Long id) {
+        List<OrdersDTO> dto = service.findByClientId(id);
+        return ResponseEntity.ok().body(dto);
+    }
+
     @PostMapping
     public ResponseEntity<OrdersDTO> insert(@Valid @RequestBody OrdersDTO dto) {
         dto = service.insert(dto);
