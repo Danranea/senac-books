@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nullable;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
 import com.senacbooks.senacbooks.address.AddressDTO;
 import com.senacbooks.senacbooks.clients.ClientDTO;
@@ -16,28 +18,24 @@ public class OrdersDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    
-    @NotBlank(message = "Campo obrigatório")
+
     private ClientDTO client;
 
-    @NotBlank(message = "Campo obrigatório")
     private List<ProductDTO> products = new ArrayList<>();
 
     private PaymentDTO payment;
 
-    @NotBlank(message = "Campo obrigatório")
     private AddressDTO address;
 
-    @NotBlank(message = "Campo obrigatório")
+    @Positive(message = "field must be greater than zero")
     private Double value;
 
-    @NotBlank(message = "Campo obrigatório")
+    @Positive(message = "field must be greater than zero")
     private Double shipping;
 
-    @NotBlank(message = "Campo obrigatório")
+    @Positive(message = "field must be greater than zero")
     private Double totalValue;
 
-    @NotBlank(message = "Campo obrigatório")
     private Boolean status;
     
     public OrdersDTO() {
@@ -82,11 +80,11 @@ public class OrdersDTO implements Serializable {
         this.id = id;
     }
 
-    public ClientDTO getCliente() {
+    public ClientDTO getClient() {
         return client;
     }
 
-    public void setCliente(ClientDTO cliente) {
+    public void setClient(ClientDTO cliente) {
         this.client = cliente;
     }
 
