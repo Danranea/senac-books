@@ -14,7 +14,7 @@ public class PaymentDTO implements Serializable{
     private String payment;
 
     @NotBlank(message = "Campo obrigatório")
-    private Integer numberCard;
+    private String numberCard;
 
     @NotBlank(message = "Campo obrigatório")
     private Integer validThru;
@@ -29,7 +29,7 @@ public class PaymentDTO implements Serializable{
     public PaymentDTO() {
     }
 
-    public PaymentDTO(Long id, String payment, Integer numberCard, Integer validThru, Integer cvv, Integer plots, Boolean status) {
+    public PaymentDTO(Long id, String payment, String numberCard, Integer validThru, Integer cvv, Integer plots, Boolean status) {
         this.id = id;
         this.payment = payment;
         this.numberCard = numberCard;
@@ -65,11 +65,11 @@ public class PaymentDTO implements Serializable{
         this.payment = payment;
     }
 
-    public Integer getNumberCard() {
+    public String getNumberCard() {
         return numberCard;
     }
 
-    public void setNumberCard(Integer numberCard) {
+    public void setNumberCard(String numberCard) {
         this.numberCard = numberCard;
     }
 
