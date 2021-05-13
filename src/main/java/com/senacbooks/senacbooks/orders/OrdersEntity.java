@@ -66,7 +66,7 @@ public class OrdersEntity implements Serializable{
     }
 
     public OrdersEntity(Long id, ClientEntity client, List<ProductEntity> products, PaymentEntity payment,
-            AddressEntity address, Double value, Double shipping, Double totalValue, Boolean status) {
+            AddressEntity address, Double value, Double shipping, Double totalValue, Boolean status, Instant updatedAt, Instant createdAt) {
         this.id = id;
         this.client = client;
         this.products = products;
@@ -76,6 +76,8 @@ public class OrdersEntity implements Serializable{
         this.shipping = shipping;
         this.totalValue = totalValue;
         this.status = status;
+        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
     }
 
 
@@ -174,6 +176,10 @@ public class OrdersEntity implements Serializable{
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     @Override

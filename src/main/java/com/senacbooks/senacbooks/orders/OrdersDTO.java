@@ -1,6 +1,7 @@
 package com.senacbooks.senacbooks.orders;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,12 +38,16 @@ public class OrdersDTO implements Serializable {
     private Double totalValue;
 
     private Boolean status;
+
+    private Instant createdAt;
+
+    private Instant updatedAt;
     
     public OrdersDTO() {
     }
 
     public OrdersDTO(Long id, ClientDTO client, List<ProductDTO> products, PaymentDTO payment, AddressDTO address,
-            Double value, Double shipping, Double totalValue, Boolean status) {
+            Double value, Double shipping, Double totalValue, Boolean status, Instant updatedAt, Instant createdAt) {
         this.id = id;
         this.client = client;
         this.products = products;
@@ -52,6 +57,9 @@ public class OrdersDTO implements Serializable {
         this.shipping = shipping;
         this.totalValue = totalValue;
         this.status = status;
+        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
+        
     }
 
     public OrdersDTO(OrdersEntity entity) {
@@ -66,6 +74,8 @@ public class OrdersDTO implements Serializable {
         this.shipping = entity.getShipping();
         this.totalValue = entity.getTotalValue();
         this.status = entity.getStatus();
+        this.updatedAt = entity.getUpdatedAt();
+        this.createdAt = entity.getCreatedAt();
     }
 
     public static long getSerialversionuid() {
@@ -143,5 +153,23 @@ public class OrdersDTO implements Serializable {
     public void setStatus(Boolean status) {
         this.status = status;
     }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    
        
 }

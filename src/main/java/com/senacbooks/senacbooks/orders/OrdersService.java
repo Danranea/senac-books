@@ -103,6 +103,7 @@ public class OrdersService {
         entity.setShipping(dto.getShipping());
         entity.setTotalValue(dto.getTotalValue());
         entity.setValue(dto.getValue());
+        entity.setCreatedAt(dto.getCreatedAt());
 
         AddressEntity addressEntity = addressRepository.getOne(dto.getAddress().getId());
         entity.setAddress(addressEntity);
