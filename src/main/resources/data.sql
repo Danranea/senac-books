@@ -978,10 +978,10 @@ insert into tb_address (zip_code, address, number, address_complement, city, sta
 ('04444000', 'rua senac', 1000, 'A', 'sao paulo', 'sp', 'jurubatuba', true, true, 20),
 ('04444000', 'rua senac', 1000, 'A', 'sao paulo', 'sp', 'jurubatuba', true, true, 21);
 
-insert into tb_payment (cvv, number_card, payment, plots, status, valid_thru, client_id) values
-(951, 1234567891, 'cartão', 3, true, 21, 1),
-(952, 1234567892, 'cartão', 2, true, 22, 2),
-(953, 1234567893, 'cartão', 1, true, 23, 3);
+insert into tb_payment (cvv, number_card, status, valid_thru, client_id) values
+(951, '1234567891', true, '2026-05', 1),
+(952, '1234567892', true, '2022-03', 2),
+(953, '1234567893', true, '2023-12', 3);
 
 insert into tb_orders (client_id, payment_id, address_id, value,shipping,total_value, status) values
 (1, 1, 1, 34.50, 9.90, 44.40, true);

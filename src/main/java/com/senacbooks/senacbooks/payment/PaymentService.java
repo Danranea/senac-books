@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.senacbooks.senacbooks.clients.ClientEntity;
+import com.senacbooks.senacbooks.clients.ClientRepository;
 import com.senacbooks.senacbooks.clients.ClientService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class PaymentService {
 
     @Autowired
     private ClientService clientService;
+
+    @Autowired
+    private ClientRepository clientRepository;
 
     @Transactional(readOnly = true)
     public List<PaymentDTO> findAll() {
@@ -40,6 +44,7 @@ public class PaymentService {
     public PaymentDTO insert(PaymentDTO dto) {
         PaymentEntity entity = new PaymentEntity();
         copyDTOToEntity(dto, entity);
+        entity.setStatus(true);
         entity = paymentRepository.save(entity);
 
         return new PaymentDTO(entity);
@@ -62,21 +67,22 @@ public class PaymentService {
         if (entity.getStatus()) {
             entity.setStatus(false);
             entity = paymentRepository.save(entity);
-            retorno = "Forma de pagamento " + entity.getPayment() + " inativada com sucesso.";
+            retorno = "Forma de pagamento " + entity.getNumberCard() + " inativada com sucesso.";
         }else{
             entity.setStatus(true);
             entity = paymentRepository.save(entity);
-            retorno = "Forma de pagamento " + entity.getPayment() + " reativada com sucesso.";
+            retorno = "Forma de pagamento " + entity.getNumberCard() + " reativada com sucesso.";
         }
         return retorno;
     }
 
     public void copyDTOToEntity(PaymentDTO dto, PaymentEntity entity) {
-        entity.setPayment(dto.getPayment());
         entity.setNumberCard(dto.getNumberCard());
         entity.setValidThru(dto.getValidThru());
         entity.setCvv(dto.getCvv());
-        entity.setPlots(dto.getPlots());
+
+        ClientEntity clientEntity = clientRepository.getOne(dto.getClient().getId());
+        entity.setClient(clientEntity);
         
     }
 
