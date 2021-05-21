@@ -984,7 +984,9 @@ insert into tb_payment (cvv, number_card, status, valid_thru, client_id) values
 (953, '1234567893', true, '2023-12', 3);
 
 insert into tb_orders (client_id, payment_id, address_id, value,shipping,total_value, status, created_at) values
-(1, 1, 1, 34.50, 9.90, 44.40, true, NOW());
+(1, 1, 1, 34.50, 9.90, 44.40, true, NOW()),
+(2, 2, 2, 44.50, 9.90, 54.40, true, NOW());
 
-insert into tb_order_product (order_id, product_id) values
-(1,1);
+insert into tb_order_detail (order_id, product_id, quantity) values
+(1,1,2),
+(1,3,3);

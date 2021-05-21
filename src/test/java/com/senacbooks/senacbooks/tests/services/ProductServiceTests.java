@@ -26,110 +26,134 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 /**
  * Como é um teste unitário dos services, e os mesmos dependem do repository,
  * devemos mocar o repository para simular seus comportamentos.
- * 
  */
 @ExtendWith(SpringExtension.class)
 public class ProductServiceTests {
 
-  //objeto prinicpal a ser testado = ProductService
-  @InjectMocks
-  private ProductService service;
+    //objeto prinicpal a ser testado = ProductService
+    @InjectMocks
+    private ProductService service;
 
-  //Objeto que iremos simular o comportamento
-  @Mock
-  private ProductRepository repository;
+    //Objeto que iremos simular o comportamento
+    @Mock
+    private ProductRepository repository;
 
-  @Mock
-  private ImageRepository imageRepository;
+    @Mock
+    private ImageRepository imageRepository;
 
-  @Mock
-  private ImageService imageService;
+    @Mock
+    private ImageService imageService;
 
-  @Mock
-  private CategoryRepository categoryRepository;
+    @Mock
+    private CategoryRepository categoryRepository;
 
-  private long existingId;
-  private long nonExistingId;
-  private ProductEntity product;
-  private long imageId;
+    private long existingId;
+    private long nonExistingId;
+    private ProductEntity product;
+    private ProductEntity new_product;
+    private long imageId;
 
-  @BeforeEach
-  void setUp() throws Exception {
-    existingId=1L;
-    nonExistingId=33245L;
-    product = ProductFactory.createProduct();
-    imageId=1L;
+    @BeforeEach
+    void setUp() throws Exception {
+        existingId = 1L;
+        nonExistingId = 33245L;
+        product = ProductFactory.createProduct();
 
-    Mockito.when(repository.findById(existingId)).thenReturn(Optional.of(product));
-    Mockito.when(repository.save(product)).thenReturn(product);
-    Mockito.doThrow(EmptyResultDataAccessException.class).when(repository).findById(nonExistingId);
-    Mockito.when(repository.getOne(existingId)).thenReturn(product);
-    Mockito.when(imageRepository.getOne(existingId)).thenReturn(new ImageEntity(1L, "image.teste.com", true, true));
-    Mockito.when(categoryRepository.getOne(existingId)).thenReturn(new CategoryEntity(1L, "teste_category", true));
-    Mockito.when(imageService.getImage(imageId)).thenReturn(new ImageEntity(1L, "image.teste.com", true, true));
-  }
+        new_product = ProductFactory.createProduct();
+        new_product.setId(332L);
+        new_product.setTitle("Test Insert");
 
-  @Test
-  public void deleteShouldThrowEmptyResultDataAccessExceptionWhenIdDoesNotExists(){
-    Assertions.assertThrows(EmptyResultDataAccessException.class, ()->{
-      service.delete(nonExistingId);
-    });
+        imageId = 1L;
 
-    Mockito.verify(repository, Mockito.times(1)).findById(nonExistingId);
-  }
+        Mockito.when(repository.findById(existingId)).thenReturn(Optional.of(product));
+        Mockito.when(repository.save(product)).thenReturn(product);
+        Mockito.when(repository.save(new_product)).thenReturn(new_product);
+        Mockito.doThrow(EmptyResultDataAccessException.class).when(repository).findById(nonExistingId);
+        Mockito.when(repository.getOne(existingId)).thenReturn(product);
+        Mockito.when(imageRepository.getOne(existingId)).thenReturn(new ImageEntity(1L, "image.teste.com", true, true));
+        Mockito.when(categoryRepository.getOne(existingId)).thenReturn(new CategoryEntity(1L, "teste_category", true));
+        Mockito.when(imageService.getImage(imageId)).thenReturn(new ImageEntity(1L, "image.teste.com", true, true));
+    }
 
-  @Test
-  public void deleteShouldTurnStatusToFalseWhenIdExistsAndStatusIsTrue(){
-    String result = service.delete(existingId);
+    @Test
+    public void deleteShouldThrowEmptyResultDataAccessExceptionWhenIdDoesNotExists() {
+        Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+            service.delete(nonExistingId);
+        });
 
-    Assertions.assertEquals("Livro " + product.getTitle() + " inativado com sucesso.", result);
+        Mockito.verify(repository, Mockito.times(1)).findById(nonExistingId);
+    }
 
-    Mockito.verify(repository, Mockito.times(1)).findById(existingId);
-    Mockito.verify(repository, Mockito.times(1)).save(product);
-  }
+    @Test
+    public void deleteShouldTurnStatusToFalseWhenIdExistsAndStatusIsTrue() {
+        String result = service.delete(existingId);
 
-  @Test
-  public void deleteShouldTurnStatusToTrueWhenIdExistsAndStatusIsFalse(){
-    product.setStatus(false);
-    String result = service.delete(existingId);
+        Assertions.assertEquals("Livro " + product.getTitle() + " inativado com sucesso.", result);
 
-    Assertions.assertEquals("Livro " + product.getTitle() + " reativado com sucesso.", result);
+        Mockito.verify(repository, Mockito.times(1)).findById(existingId);
+        Mockito.verify(repository, Mockito.times(1)).save(product);
+    }
 
-    Mockito.verify(repository, Mockito.times(1)).findById(existingId);
-    Mockito.verify(repository, Mockito.times(1)).save(product);
-  }
+    @Test
+    public void deleteShouldTurnStatusToTrueWhenIdExistsAndStatusIsFalse() {
+        product.setStatus(false);
+        String result = service.delete(existingId);
 
-  @Test
-  public void findByIdShouldReturnProductWhenIdExists(){
+        Assertions.assertEquals("Livro " + product.getTitle() + " reativado com sucesso.", result);
 
-    ProductDTO result = service.findById(existingId);
+        Mockito.verify(repository, Mockito.times(1)).findById(existingId);
+        Mockito.verify(repository, Mockito.times(1)).save(product);
+    }
 
-    Assertions.assertEquals(existingId, result.getId());
-    Mockito.verify(repository, Mockito.times(1)).findById(existingId);
-  }
+    @Test
+    public void findByIdShouldReturnProductWhenIdExists() {
 
-  @Test
-  public void findByIdShouldThrowEmptyResultDataAccessExceptionWhenIdDoesNotExists(){
+        ProductDTO result = service.findById(existingId);
 
-    Assertions.assertThrows(EmptyResultDataAccessException.class, ()->{
-      service.findById(nonExistingId);
-    });
+        Assertions.assertEquals(existingId, result.getId());
+        Mockito.verify(repository, Mockito.times(1)).findById(existingId);
+    }
 
-    Mockito.verify(repository, Mockito.times(1)).findById(nonExistingId);
-  }
+    @Test
+    public void findByIdShouldThrowEmptyResultDataAccessExceptionWhenIdDoesNotExists() {
 
-  @Test
-  public void updateShouldReturnProductWhenIdExists(){
-    ProductDTO dto = ProductFactory.createproductDTO();
+        Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+            service.findById(nonExistingId);
+        });
 
-    ProductDTO result = service.update(existingId, dto);
+        Mockito.verify(repository, Mockito.times(1)).findById(nonExistingId);
+    }
 
-    Assertions.assertEquals(result.getTitle(), dto.getTitle());
-    Mockito.verify(repository, Mockito.times(1)).getOne(existingId);
-    Mockito.verify(imageRepository, Mockito.times(1)).getOne(imageId);
-    Mockito.verify(imageService, Mockito.times(1)).getImage(imageId);
-    Mockito.verify(categoryRepository, Mockito.times(1)).getOne(existingId);
+    @Test
+    public void updateShouldReturnProductWhenIdExists() {
+        ProductDTO dto = ProductFactory.createproductDTO();
+        dto.setTitle("Teste update");
 
-  }
-  
+        ProductDTO result = service.update(existingId, dto);
+
+        Assertions.assertEquals(result.getTitle(), dto.getTitle());
+        Mockito.verify(repository, Mockito.times(1)).getOne(existingId);
+        Mockito.verify(imageRepository, Mockito.times(1)).getOne(imageId);
+        Mockito.verify(imageService, Mockito.times(1)).getImage(imageId);
+        Mockito.verify(categoryRepository, Mockito.times(1)).getOne(existingId);
+
+    }
+
+//    @Test
+//    public void insertShouldReturnProductWhenInsert() {
+//        ProductDTO dto = ProductFactory.createproductDTO();
+//
+//        dto.setId(null);
+//        dto.setTitle("Test Insert");
+//
+//        ProductDTO result = service.insert(dto);
+//
+//        Assertions.assertEquals(result.getTitle(), dto.getTitle());
+//        Mockito.verify(repository, Mockito.times(1)).save(new_product);
+//        Mockito.verify(imageRepository, Mockito.times(1)).getOne(imageId);
+//        Mockito.verify(imageService, Mockito.times(1)).getImage(imageId);
+//        Mockito.verify(categoryRepository, Mockito.times(1)).getOne(existingId);
+//
+//    }
+
 }

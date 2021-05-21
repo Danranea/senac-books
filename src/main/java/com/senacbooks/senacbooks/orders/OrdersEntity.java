@@ -2,8 +2,8 @@ package com.senacbooks.senacbooks.orders;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,16 +11,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.senacbooks.senacbooks.address.AddressEntity;
 import com.senacbooks.senacbooks.clients.ClientEntity;
+import com.senacbooks.senacbooks.orders.details.OrderDetailsEntity;
 import com.senacbooks.senacbooks.payment.PaymentEntity;
-import com.senacbooks.senacbooks.products.ProductEntity;
 
 @Entity
 @Table(name = "tb_orders")
@@ -35,14 +34,6 @@ public class OrdersEntity implements Serializable{
     @ManyToOne
     @JoinColumn(name="client_id")
     private ClientEntity client;
-    
-    @ManyToMany
-    @JoinTable(
-            name="tb_order_product",
-            joinColumns = @JoinColumn(name = "order_id"), // chave estrangeira relacionada a classe onde estamos, ou seja, será o produto.(A própria classe)
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private List<ProductEntity> products = new ArrayList<>();
     
     @OneToOne
     @JoinColumn(name="payment_id")
@@ -65,11 +56,10 @@ public class OrdersEntity implements Serializable{
     public OrdersEntity() {
     }
 
-    public OrdersEntity(Long id, ClientEntity client, List<ProductEntity> products, PaymentEntity payment,
+    public OrdersEntity(Long id, ClientEntity client, PaymentEntity payment,
             AddressEntity address, Double value, Double shipping, Double totalValue, Boolean status, Instant updatedAt, Instant createdAt) {
         this.id = id;
         this.client = client;
-        this.products = products;
         this.payment = payment;
         this.address = address;
         this.value = value;
@@ -102,14 +92,14 @@ public class OrdersEntity implements Serializable{
         this.client = client;
     }
     
-    public List<ProductEntity> getProducts() {
-        return products;
-    }
-    
-    public void setProducts(List<ProductEntity> products) {
-        this.products = products;
-    }
-    
+    // public Set<OrderDetailsEntity> getOrderDetails() {
+    //     return orderDetails;
+    // }
+
+    // public void setOrderDetails(Set<OrderDetailsEntity> orderDetails) {
+    //     this.orderDetails = orderDetails;
+    // }
+
     public PaymentEntity getPayment() {
         return payment;
     }
@@ -127,11 +117,7 @@ public class OrdersEntity implements Serializable{
     }
     
     public Double getValue() {
-        double sum = 0;
-        for (ProductEntity productEntity : this.products) {
-            sum += productEntity.getPrice();
-        }
-        return sum;
+        return value;
     }
     
     public void setValue(Double value) {

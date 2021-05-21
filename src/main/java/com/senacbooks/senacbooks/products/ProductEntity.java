@@ -1,6 +1,7 @@
 package com.senacbooks.senacbooks.products;
 
 import com.senacbooks.senacbooks.categories.CategoryEntity;
+import com.senacbooks.senacbooks.orders.details.OrderDetailsEntity;
 import com.senacbooks.senacbooks.products.images.ImageEntity;
 
 import javax.persistence.*;
@@ -51,6 +52,9 @@ public class ProductEntity implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private Set<CategoryEntity> categories = new HashSet<>();
+
+    // @OneToMany(mappedBy = "product")
+    // private Set<OrderDetailsEntity> orderDetails = new HashSet<>();
 
     public ProductEntity() {
     }

@@ -3,14 +3,15 @@ package com.senacbooks.senacbooks.orders;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import javax.annotation.Nullable;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
 import com.senacbooks.senacbooks.address.AddressDTO;
 import com.senacbooks.senacbooks.clients.ClientDTO;
+import com.senacbooks.senacbooks.orders.details.OrderDetailsDTO;
 import com.senacbooks.senacbooks.payment.PaymentDTO;
 import com.senacbooks.senacbooks.products.ProductDTO;
 
@@ -21,8 +22,6 @@ public class OrdersDTO implements Serializable {
     private Long id;
 
     private ClientDTO client;
-
-    private List<ProductDTO> products = new ArrayList<>();
 
     private PaymentDTO payment;
 
@@ -46,11 +45,10 @@ public class OrdersDTO implements Serializable {
     public OrdersDTO() {
     }
 
-    public OrdersDTO(Long id, ClientDTO client, List<ProductDTO> products, PaymentDTO payment, AddressDTO address,
+    public OrdersDTO(Long id, ClientDTO client, PaymentDTO payment, AddressDTO address,
             Double value, Double shipping, Double totalValue, Boolean status, Instant updatedAt, Instant createdAt) {
         this.id = id;
         this.client = client;
-        this.products = products;
         this.payment = payment;
         this.address = address;
         this.value = value;
@@ -65,7 +63,6 @@ public class OrdersDTO implements Serializable {
     public OrdersDTO(OrdersEntity entity) {
         this.id = entity.getId();
         this.client = new ClientDTO(entity.getClient());
-        entity.getProducts().forEach(product -> this.products.add(new ProductDTO(product)));
         if (entity.getPayment() != null) {            
             this.payment = new PaymentDTO(entity.getPayment());
         }
@@ -98,13 +95,13 @@ public class OrdersDTO implements Serializable {
         this.client = cliente;
     }
 
-    public List<ProductDTO> getProducts() {
-        return products;
-    }
+    // public Set<OrderDetailsDTO> getOrderDetails() {
+    //     return orderDetails;
+    // }
 
-    public void setProducts(List<ProductDTO> products) {
-        this.products = products;
-    }
+    // public void setOrderDetails(Set<OrderDetailsDTO> orderDetails) {
+    //     this.orderDetails = orderDetails;
+    // }
 
     public PaymentDTO getPayment() {
         return payment;

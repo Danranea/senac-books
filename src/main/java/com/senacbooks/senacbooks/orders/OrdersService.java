@@ -1,24 +1,18 @@
 package com.senacbooks.senacbooks.orders;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import com.senacbooks.senacbooks.address.AddressEntity;
 import com.senacbooks.senacbooks.address.AddressRepository;
-import com.senacbooks.senacbooks.categories.CategoryDTO;
-import com.senacbooks.senacbooks.categories.CategoryEntity;
 import com.senacbooks.senacbooks.clients.ClientEntity;
 import com.senacbooks.senacbooks.clients.ClientRepository;
 import com.senacbooks.senacbooks.payment.PaymentEntity;
 import com.senacbooks.senacbooks.payment.PaymentRepository;
-import com.senacbooks.senacbooks.products.ProductDTO;
-import com.senacbooks.senacbooks.products.ProductEntity;
-import com.senacbooks.senacbooks.products.ProductRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,19 +31,11 @@ public class OrdersService {
 
     @Autowired
     private PaymentRepository paymentRepository;
-
-    @Autowired
-    private ProductRepository productRepository;
     
     @Transactional(readOnly = true) 
-    public List<OrdersDTO> findAllPaged(PageRequest pageRequest) {
-        List<OrdersEntity> list = ordersRepository.findAll();
-        List<OrdersDTO> listDto = new ArrayList<>();
-        for (OrdersEntity ordersEntity : list) {
-            OrdersDTO dto = new OrdersDTO(ordersEntity);
-            listDto.add(dto);
-        }
-        return listDto;
+    public Page<OrdersDTO> findAllPaged(PageRequest pageRequest) {
+        Page<OrdersEntity> list = ordersRepository.find(pageRequest);
+        return list.map(x -> new OrdersDTO(x));
     }
 
     @Transactional(readOnly = true)
@@ -118,10 +104,10 @@ public class OrdersService {
             entity.setPayment(null);
         }
 
-        for (ProductDTO productDTO : dto.getProducts()) {
-            ProductEntity productEntity = productRepository.getOne(productDTO.getId());
-            entity.getProducts().add(productEntity);
-        }
+        // for (OrderDetailsDTO orderDetailsDTO : dto.getOrderDetails()) {
+        //     OrderDetailsEntity orderDetailsEntity = orderDetailsRepository.getOne(orderDetailsDTO.getId());
+        //     entity.getOrderDetails().add(orderDetailsEntity);
+        // }
 
     }
 }
