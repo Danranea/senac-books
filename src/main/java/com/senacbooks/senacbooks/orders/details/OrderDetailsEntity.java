@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.senacbooks.senacbooks.clients.ClientEntity;
 import com.senacbooks.senacbooks.orders.OrdersEntity;
 import com.senacbooks.senacbooks.products.ProductEntity;
 
@@ -31,15 +32,20 @@ public class OrderDetailsEntity implements Serializable{
   @JoinColumn(name = "product_id")
   private ProductEntity product;
 
+  @ManyToOne
+  @JoinColumn(name = "client_id")
+  private ClientEntity client;
+
   private Integer quantity;
 
   public OrderDetailsEntity() {
   }
 
-  public OrderDetailsEntity(Long id, OrdersEntity order, ProductEntity product, Integer quantity) {
+  public OrderDetailsEntity(Long id, OrdersEntity order, ProductEntity product, ClientEntity client, Integer quantity) {
     this.id = id;
     this.order = order;
     this.product = product;
+    this.client = client;
     this.quantity = quantity;
   }
 
@@ -65,6 +71,14 @@ public class OrderDetailsEntity implements Serializable{
 
   public void setProduct(ProductEntity product) {
     this.product = product;
+  }
+
+  public ClientEntity getClient() {
+    return client;
+  }
+
+  public void setClient(ClientEntity client) {
+    this.client = client;
   }
 
   public Integer getQuantity() {

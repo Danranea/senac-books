@@ -39,10 +39,19 @@ public class OrdersDTO implements Serializable {
     public OrdersDTO() {
     }
 
-    public OrdersDTO(Long id, ClientDTO client, PaymentDTO payment, AddressDTO address,
-            Double value, Double shipping, Double totalValue, Boolean status, Instant updatedAt, Instant createdAt) {
+    public OrdersDTO(
+        Long id, 
+        // ClientDTO client,
+        PaymentDTO payment, 
+        AddressDTO address,
+        Double value, 
+        Double shipping, 
+        Double totalValue, 
+        Boolean status, 
+        Instant updatedAt, 
+        Instant createdAt) {
         this.id = id;
-        this.client = client;
+        // this.client = client;
         this.payment = payment;
         this.address = address;
         this.value = value;
@@ -56,7 +65,7 @@ public class OrdersDTO implements Serializable {
 
     public OrdersDTO(OrdersEntity entity) {
         this.id = entity.getId();
-        this.client = new ClientDTO(entity.getClient());
+        // this.client = new ClientDTO(entity.getClient());
         if (entity.getPayment() != null) {            
             this.payment = new PaymentDTO(entity.getPayment());
         }
