@@ -45,7 +45,7 @@ public class ProductEntity implements Serializable {
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<ImageEntity> images = new HashSet<>();
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name="tb_product_category",
             joinColumns = @JoinColumn(name = "product_id"), // chave estrangeira relacionada a classe onde estamos, ou seja, será o produto.(A própria classe)
