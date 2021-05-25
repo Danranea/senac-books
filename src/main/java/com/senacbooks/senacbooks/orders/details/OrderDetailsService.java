@@ -43,7 +43,7 @@ public class OrderDetailsService {
     OrdersEntity ordersEntity = ordersRepository.getOne(dto.getOrder().getId());
     entity.setOrder(ordersEntity);
 
-    ProductEntity productEntity = productRepository.getOne(dto.getOrder().getId());
+    ProductEntity productEntity = productRepository.getOne(dto.getProduct().getId());
     entity.setProduct(productEntity);
 
     entity.setQuantity(dto.getQuantity());

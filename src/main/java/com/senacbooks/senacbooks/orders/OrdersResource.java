@@ -47,8 +47,14 @@ public class OrdersResource {
     }
 
     @GetMapping(value = "/client/{id}")
-    public ResponseEntity<List<OrdersDTO>> findByClientId(@PathVariable Long id) {
-        List<OrdersDTO> dto = service.findByClientId(id);
+    public ResponseEntity<Page<OrdersDTO>> findByClientId(@RequestParam(value = "page", defaultValue = "0") Integer page,
+    @RequestParam(value = "linesPerPage", defaultValue = "40") Integer linesPerPage,
+    @RequestParam(value = "direction", defaultValue = "DESC") String direction,
+    @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
+    @PathVariable Long id
+    ) {
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        Page<OrdersDTO> dto = service.findByClientId(pageRequest, id);
         return ResponseEntity.ok().body(dto);
     }
 

@@ -46,9 +46,9 @@ public class OrdersService {
     }
 
     @Transactional(readOnly = true)
-    public List<OrdersDTO> findByClientId(Long id) {
-        List<OrdersEntity> obj = ordersRepository.findByClientId(id);
-        return obj.stream().map(x -> new OrdersDTO(x)).collect(Collectors.toList());
+    public Page<OrdersDTO> findByClientId(PageRequest pageRequest, Long id) {
+        Page<OrdersEntity> obj = ordersRepository.findByClientId(pageRequest, id);
+        return obj.map(x -> new OrdersDTO(x));
     }
 
     @Transactional
