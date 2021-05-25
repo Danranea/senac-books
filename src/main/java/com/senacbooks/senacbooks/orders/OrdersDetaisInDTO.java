@@ -2,13 +2,11 @@ package com.senacbooks.senacbooks.orders;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.Set;
 
 import javax.validation.constraints.Positive;
 
 import com.senacbooks.senacbooks.address.AddressDTO;
 import com.senacbooks.senacbooks.clients.ClientOrderDTO;
-import com.senacbooks.senacbooks.orders.details.OrderDetailsDTOOut;
 import com.senacbooks.senacbooks.payment.PaymentOrderDTO;
 
 public class OrdersDetaisInDTO implements Serializable {

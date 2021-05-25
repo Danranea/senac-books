@@ -1,8 +1,5 @@
 package com.senacbooks.senacbooks.orders.details;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.senacbooks.senacbooks.orders.OrdersEntity;
 import com.senacbooks.senacbooks.orders.OrdersRepository;
 import com.senacbooks.senacbooks.products.ProductEntity;
