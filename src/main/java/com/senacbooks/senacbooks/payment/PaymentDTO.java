@@ -1,12 +1,8 @@
 package com.senacbooks.senacbooks.payment;
 
-import com.senacbooks.senacbooks.clients.ClientDTO;
-import com.senacbooks.senacbooks.clients.ClientEntity;
-
 import java.io.Serializable;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
+import com.senacbooks.senacbooks.clients.ClientDTO;
 
 public class PaymentDTO implements Serializable{
     

@@ -2,19 +2,26 @@ package com.senacbooks.senacbooks.orders;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import com.senacbooks.senacbooks.address.AddressEntity;
 import com.senacbooks.senacbooks.clients.ClientEntity;
+import com.senacbooks.senacbooks.orders.details.OrderDetailsEntity;
 import com.senacbooks.senacbooks.payment.PaymentEntity;
 
 @Entity
@@ -43,6 +50,9 @@ public class OrdersEntity implements Serializable{
     private Double totalValue;
     private Boolean status;
 
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+    private Set<OrderDetailsEntity> orderDetails = new HashSet<>();
+
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant createdAt;
 
@@ -52,8 +62,19 @@ public class OrdersEntity implements Serializable{
     public OrdersEntity() {
     }
 
-    public OrdersEntity(Long id, ClientEntity client, PaymentEntity payment,
-            AddressEntity address, Double value, Double shipping, Double totalValue, Boolean status, Instant updatedAt, Instant createdAt) {
+    public OrdersEntity(
+        Long id, 
+        ClientEntity client, 
+        PaymentEntity payment,
+        AddressEntity address, 
+        Double value, 
+        Double shipping, 
+        Double totalValue, 
+        Boolean status, 
+        Instant updatedAt, 
+        Instant createdAt,
+        Set<OrderDetailsEntity> orderDetails
+        ) {
         this.id = id;
         this.client = client;
         this.payment = payment;
@@ -64,9 +85,8 @@ public class OrdersEntity implements Serializable{
         this.status = status;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
+        this.orderDetails = orderDetails;
     }
-
-
 
     public static long getSerialversionuid() {
         return serialVersionUID;
@@ -88,13 +108,13 @@ public class OrdersEntity implements Serializable{
         this.client = client;
     }
     
-    // public Set<OrderDetailsEntity> getOrderDetails() {
-    //     return orderDetails;
-    // }
+    public Set<OrderDetailsEntity> getOrderDetails() {
+        return orderDetails;
+    }
 
-    // public void setOrderDetails(Set<OrderDetailsEntity> orderDetails) {
-    //     this.orderDetails = orderDetails;
-    // }
+    public void setOrderDetails(Set<OrderDetailsEntity> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
 
     public PaymentEntity getPayment() {
         return payment;
@@ -159,7 +179,17 @@ public class OrdersEntity implements Serializable{
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
     }
+    
+    @PrePersist
+    public void prePersist(){
+        createdAt = Instant.now();
+    }
 
+    @PreUpdate
+    public void preUpdate(){
+        updatedAt = Instant.now();
+    }
+    
     public void setStatus(Boolean status) {
         this.status = status;
     }

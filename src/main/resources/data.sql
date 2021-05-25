@@ -987,9 +987,9 @@ insert into tb_orders (client_id, payment_id, address_id, value,shipping,total_v
 (1, 1, 1, 34.50, 9.90, 44.40, true, NOW()),
 (2, 2, 2, 44.50, 9.90, 54.40, true, NOW());
 
-insert into tb_order_detail (order_id, product_id, client_id, quantity) values
-(1,1,1,2),
-(1,3,1,3),
-(2,1,2,1),
-(2,2,2,2),
-(2,3,2,4);
+insert into tb_order_detail (order_id, product_id, quantity) values
+(1,1,2),
+(1,3,3),
+(2,1,1),
+(2,2,2),
+(2,3,4);
