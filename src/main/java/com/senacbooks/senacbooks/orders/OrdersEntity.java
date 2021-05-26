@@ -48,6 +48,7 @@ public class OrdersEntity implements Serializable{
     private Double value;
     private Double shipping;
     private Double totalValue;
+    private String orderStatus;
     private Boolean status;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
@@ -69,7 +70,8 @@ public class OrdersEntity implements Serializable{
         AddressEntity address, 
         Double value, 
         Double shipping, 
-        Double totalValue, 
+        Double totalValue,
+        String orderStatus,
         Boolean status, 
         Instant updatedAt, 
         Instant createdAt,
@@ -82,6 +84,7 @@ public class OrdersEntity implements Serializable{
         this.value = value;
         this.shipping = shipping;
         this.totalValue = totalValue;
+        this.orderStatus = orderStatus;
         this.status = status;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
@@ -156,6 +159,14 @@ public class OrdersEntity implements Serializable{
         this.totalValue = totalValue;
     }
     
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
     public Boolean getStatus() {
         return status;
     }

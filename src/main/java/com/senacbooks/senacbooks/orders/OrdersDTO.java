@@ -33,6 +33,8 @@ public class OrdersDTO implements Serializable {
     @Positive(message = "field must be greater than zero")
     private Double totalValue;
 
+    private String orderStatus;
+
     private Boolean status;
 
     private Set<OrderDetailsDTOOut> orderDetails = new HashSet<>();
@@ -52,6 +54,7 @@ public class OrdersDTO implements Serializable {
         Double value, 
         Double shipping, 
         Double totalValue, 
+        String orderStatus,
         Boolean status, 
         Instant updatedAt, 
         Instant createdAt,
@@ -64,6 +67,7 @@ public class OrdersDTO implements Serializable {
         this.value = value;
         this.shipping = shipping;
         this.totalValue = totalValue;
+        this.orderStatus = orderStatus;
         this.status = status;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
@@ -80,6 +84,7 @@ public class OrdersDTO implements Serializable {
         this.value = entity.getValue();
         this.shipping = entity.getShipping();
         this.totalValue = entity.getTotalValue();
+        this.orderStatus = entity.getOrderStatus();
         this.status = entity.getStatus();
         this.updatedAt = entity.getUpdatedAt();
         this.createdAt = entity.getCreatedAt();
@@ -152,6 +157,14 @@ public class OrdersDTO implements Serializable {
 
     public void setTotalValue(Double totalValue) {
         this.totalValue = totalValue;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public Boolean getStatus() {

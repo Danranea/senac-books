@@ -1,13 +1,15 @@
 package com.senacbooks.senacbooks.orders;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import com.senacbooks.senacbooks.address.AddressEntity;
 import com.senacbooks.senacbooks.address.AddressRepository;
 import com.senacbooks.senacbooks.clients.ClientEntity;
 import com.senacbooks.senacbooks.clients.ClientRepository;
+import com.senacbooks.senacbooks.orders.details.OrderDetailsDTO;
+import com.senacbooks.senacbooks.orders.details.OrderDetailsDTOOut;
+import com.senacbooks.senacbooks.orders.details.OrderDetailsEntity;
+import com.senacbooks.senacbooks.orders.details.OrderDetailsRepository;
 import com.senacbooks.senacbooks.payment.PaymentEntity;
 import com.senacbooks.senacbooks.payment.PaymentRepository;
 
@@ -31,6 +33,9 @@ public class OrdersService {
 
     @Autowired
     private PaymentRepository paymentRepository;
+
+    @Autowired
+    private OrderDetailsRepository orderDetailsRepository;
     
     @Transactional(readOnly = true) 
     public Page<OrdersDTO> findAllPaged(PageRequest pageRequest) {
@@ -90,6 +95,7 @@ public class OrdersService {
         entity.setTotalValue(dto.getTotalValue());
         entity.setValue(dto.getValue());
         entity.setCreatedAt(dto.getCreatedAt());
+        entity.setOrderStatus(dto.getOrderStatus());
 
         AddressEntity addressEntity = addressRepository.getOne(dto.getAddress().getId());
         entity.setAddress(addressEntity);
@@ -104,10 +110,10 @@ public class OrdersService {
             entity.setPayment(null);
         }
 
-        // for (OrderDetailsDTO orderDetailsDTO : dto.getOrderDetails()) {
-        //     OrderDetailsEntity orderDetailsEntity = orderDetailsRepository.getOne(orderDetailsDTO.getId());
-        //     entity.getOrderDetails().add(orderDetailsEntity);
-        // }
+        for (OrderDetailsDTOOut orderDetailsDTO : dto.getOrderDetails()) {
+            OrderDetailsEntity orderDetailsEntity = orderDetailsRepository.getOne(orderDetailsDTO.getId());
+            entity.getOrderDetails().add(orderDetailsEntity);
+        }
 
     }
 }
