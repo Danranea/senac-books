@@ -983,8 +983,13 @@ insert into tb_payment (cvv, number_card, status, valid_thru, client_id) values
 (952, '1234567892', true, '2022-03', 2),
 (953, '1234567893', true, '2023-12', 3);
 
-insert into tb_orders (client_id, payment_id, address_id, value,shipping,total_value, status, created_at) values
-(1, 1, 1, 34.50, 9.90, 44.40, true, NOW());
+insert into tb_orders (client_id, payment_id, address_id, value,shipping,total_value, order_status, status, created_at) values
+(1, 1, 1, 34.50, 9.90, 44.40, 'AGUARDANDO PAGAMENTO', true, NOW()),
+(2, 2, 2, 44.50, 9.90, 54.40, 'AGUARDANDO PAGAMENTO', true, NOW());
 
-insert into tb_order_product (order_id, product_id) values
-(1,1);
+insert into tb_order_detail (order_id, product_id, quantity) values
+(1,1,2),
+(1,3,3),
+(2,1,1),
+(2,2,2),
+(2,3,4);

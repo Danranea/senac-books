@@ -45,7 +45,7 @@ public class ClientEntity implements Serializable, UserDetails {
     private String password;
     private Boolean status;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<AddressEntity> addresses = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)

@@ -2,25 +2,27 @@ package com.senacbooks.senacbooks.orders;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import com.senacbooks.senacbooks.address.AddressEntity;
 import com.senacbooks.senacbooks.clients.ClientEntity;
+import com.senacbooks.senacbooks.orders.details.OrderDetailsEntity;
 import com.senacbooks.senacbooks.payment.PaymentEntity;
-import com.senacbooks.senacbooks.products.ProductEntity;
 
 @Entity
 @Table(name = "tb_orders")
@@ -36,14 +38,6 @@ public class OrdersEntity implements Serializable{
     @JoinColumn(name="client_id")
     private ClientEntity client;
     
-    @ManyToMany
-    @JoinTable(
-            name="tb_order_product",
-            joinColumns = @JoinColumn(name = "order_id"), // chave estrangeira relacionada a classe onde estamos, ou seja, será o produto.(A própria classe)
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private List<ProductEntity> products = new ArrayList<>();
-    
     @OneToOne
     @JoinColumn(name="payment_id")
     private PaymentEntity payment;
@@ -54,7 +48,11 @@ public class OrdersEntity implements Serializable{
     private Double value;
     private Double shipping;
     private Double totalValue;
+    private String orderStatus;
     private Boolean status;
+
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+    private Set<OrderDetailsEntity> orderDetails = new HashSet<>();
 
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant createdAt;
@@ -65,22 +63,33 @@ public class OrdersEntity implements Serializable{
     public OrdersEntity() {
     }
 
-    public OrdersEntity(Long id, ClientEntity client, List<ProductEntity> products, PaymentEntity payment,
-            AddressEntity address, Double value, Double shipping, Double totalValue, Boolean status, Instant updatedAt, Instant createdAt) {
+    public OrdersEntity(
+        Long id, 
+        ClientEntity client, 
+        PaymentEntity payment,
+        AddressEntity address, 
+        Double value, 
+        Double shipping, 
+        Double totalValue,
+        String orderStatus,
+        Boolean status, 
+        Instant updatedAt, 
+        Instant createdAt,
+        Set<OrderDetailsEntity> orderDetails
+        ) {
         this.id = id;
         this.client = client;
-        this.products = products;
         this.payment = payment;
         this.address = address;
         this.value = value;
         this.shipping = shipping;
         this.totalValue = totalValue;
+        this.orderStatus = orderStatus;
         this.status = status;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
+        this.orderDetails = orderDetails;
     }
-
-
 
     public static long getSerialversionuid() {
         return serialVersionUID;
@@ -102,14 +111,14 @@ public class OrdersEntity implements Serializable{
         this.client = client;
     }
     
-    public List<ProductEntity> getProducts() {
-        return products;
+    public Set<OrderDetailsEntity> getOrderDetails() {
+        return orderDetails;
     }
-    
-    public void setProducts(List<ProductEntity> products) {
-        this.products = products;
+
+    public void setOrderDetails(Set<OrderDetailsEntity> orderDetails) {
+        this.orderDetails = orderDetails;
     }
-    
+
     public PaymentEntity getPayment() {
         return payment;
     }
@@ -127,11 +136,7 @@ public class OrdersEntity implements Serializable{
     }
     
     public Double getValue() {
-        double sum = 0;
-        for (ProductEntity productEntity : this.products) {
-            sum += productEntity.getPrice();
-        }
-        return sum;
+        return value;
     }
     
     public void setValue(Double value) {
@@ -154,6 +159,14 @@ public class OrdersEntity implements Serializable{
         this.totalValue = totalValue;
     }
     
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
     public Boolean getStatus() {
         return status;
     }
@@ -177,7 +190,17 @@ public class OrdersEntity implements Serializable{
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
     }
+    
+    @PrePersist
+    public void prePersist(){
+        createdAt = Instant.now();
+    }
 
+    @PreUpdate
+    public void preUpdate(){
+        updatedAt = Instant.now();
+    }
+    
     public void setStatus(Boolean status) {
         this.status = status;
     }

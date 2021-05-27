@@ -2,17 +2,15 @@ package com.senacbooks.senacbooks.orders;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.annotation.Nullable;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
 import com.senacbooks.senacbooks.address.AddressDTO;
-import com.senacbooks.senacbooks.clients.ClientDTO;
-import com.senacbooks.senacbooks.payment.PaymentDTO;
-import com.senacbooks.senacbooks.products.ProductDTO;
+import com.senacbooks.senacbooks.clients.ClientOrderDTO;
+import com.senacbooks.senacbooks.orders.details.OrderDetailsDTOOut;
+import com.senacbooks.senacbooks.payment.PaymentOrderDTO;
 
 public class OrdersDTO implements Serializable {
     
@@ -20,11 +18,9 @@ public class OrdersDTO implements Serializable {
 
     private Long id;
 
-    private ClientDTO client;
+    private ClientOrderDTO client;
 
-    private List<ProductDTO> products = new ArrayList<>();
-
-    private PaymentDTO payment;
+    private PaymentOrderDTO payment;
 
     private AddressDTO address;
 
@@ -37,7 +33,11 @@ public class OrdersDTO implements Serializable {
     @Positive(message = "field must be greater than zero")
     private Double totalValue;
 
+    private String orderStatus;
+
     private Boolean status;
+
+    private Set<OrderDetailsDTOOut> orderDetails = new HashSet<>();
 
     private Instant createdAt;
 
@@ -46,36 +46,49 @@ public class OrdersDTO implements Serializable {
     public OrdersDTO() {
     }
 
-    public OrdersDTO(Long id, ClientDTO client, List<ProductDTO> products, PaymentDTO payment, AddressDTO address,
-            Double value, Double shipping, Double totalValue, Boolean status, Instant updatedAt, Instant createdAt) {
+    public OrdersDTO(
+        Long id, 
+        ClientOrderDTO client,
+        PaymentOrderDTO payment, 
+        AddressDTO address,
+        Double value, 
+        Double shipping, 
+        Double totalValue, 
+        String orderStatus,
+        Boolean status, 
+        Instant updatedAt, 
+        Instant createdAt,
+        Set<OrderDetailsDTOOut> orderDetails
+        ) {
         this.id = id;
         this.client = client;
-        this.products = products;
         this.payment = payment;
         this.address = address;
         this.value = value;
         this.shipping = shipping;
         this.totalValue = totalValue;
+        this.orderStatus = orderStatus;
         this.status = status;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
-        
+        this.orderDetails = orderDetails;
     }
 
     public OrdersDTO(OrdersEntity entity) {
         this.id = entity.getId();
-        this.client = new ClientDTO(entity.getClient());
-        entity.getProducts().forEach(product -> this.products.add(new ProductDTO(product)));
+        this.client = new ClientOrderDTO(entity.getClient());
         if (entity.getPayment() != null) {            
-            this.payment = new PaymentDTO(entity.getPayment());
+            this.payment = new PaymentOrderDTO(entity.getPayment());
         }
         this.address = new AddressDTO(entity.getAddress());
         this.value = entity.getValue();
         this.shipping = entity.getShipping();
         this.totalValue = entity.getTotalValue();
+        this.orderStatus = entity.getOrderStatus();
         this.status = entity.getStatus();
         this.updatedAt = entity.getUpdatedAt();
         this.createdAt = entity.getCreatedAt();
+        entity.getOrderDetails().forEach(orderDetail -> this.orderDetails.add(new OrderDetailsDTOOut(orderDetail)));
     }
 
     public static long getSerialversionuid() {
@@ -90,27 +103,27 @@ public class OrdersDTO implements Serializable {
         this.id = id;
     }
 
-    public ClientDTO getClient() {
+    public ClientOrderDTO getClient() {
         return client;
     }
 
-    public void setClient(ClientDTO cliente) {
+    public void setClient(ClientOrderDTO cliente) {
         this.client = cliente;
     }
 
-    public List<ProductDTO> getProducts() {
-        return products;
+    public Set<OrderDetailsDTOOut> getOrderDetails() {
+        return orderDetails;
     }
 
-    public void setProducts(List<ProductDTO> products) {
-        this.products = products;
+    public void setOrderDetails(Set<OrderDetailsDTOOut> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 
-    public PaymentDTO getPayment() {
+    public PaymentOrderDTO getPayment() {
         return payment;
     }
 
-    public void setPayment(PaymentDTO payment) {
+    public void setPayment(PaymentOrderDTO payment) {
         this.payment = payment;
     }
 
@@ -144,6 +157,14 @@ public class OrdersDTO implements Serializable {
 
     public void setTotalValue(Double totalValue) {
         this.totalValue = totalValue;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public Boolean getStatus() {
